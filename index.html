@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Thanh (Jonathan) Bui — Full-Stack Product Builder</title>
+    <meta name="description"
+        content="Portfolio of a Full-Stack Product Builder with 8 years building Fiat-Crypto bridges & QR Payment systems — CEX/DEX, On/Off-Ramps & merchant payments." />
+    <link rel="icon" type="image/png" href="images/icon-transparent.png" />
+    <!-- Note: Tailwind CDN and Google Fonts don't support SRI as they serve dynamic content.
+         For production, consider self-hosting or using a specific versioned build. -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" crossorigin="anonymous" />
+    <style type="text/tailwindcss">
+        :root {
+        --primary: #E67E22;
+        --bg-white: #ffffff;
+        --charcoal: #2c3e50;
+        --accent-soft: #f8f9fa;
+    }
+    body {
+        font-family: 'Open Sans', sans-serif;
+        color: var(--charcoal);
+        background-color: var(--bg-white);
+    }
+    h1, h2, h3, h4, .font-display {
+        font-family: 'Montserrat', sans-serif;
+    }
+    .editorial-shadow {
+        box-shadow: 0 10px 30px rgba(44, 62, 80, 0.05);
+    }
+    .custom-border {
+        border-color: rgba(230, 126, 34, 0.2);
+    }
+    /* Modal/Lightbox Styles */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active {
+        display: flex;
+        opacity: 1;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+    }
+    .modal-overlay.active .modal-content {
+        transform: scale(1);
+    }
+    .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid white;
+        border-radius: 50%;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10001;
+    }
+    .modal-close:hover {
+        background: rgba(230, 126, 34, 0.9);
+        transform: rotate(90deg);
+    }
+    .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid white;
+        border-radius: 50%;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10001;
+    }
+    .lightbox-nav:hover {
+        background: rgba(230, 126, 34, 0.9);
+    }
+    .lightbox-nav.prev {
+        left: 20px;
+    }
+    .lightbox-nav.next {
+        right: 20px;
+    }
+    .lightbox-image {
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+    video.modal-video {
+        max-width: 90vw;
+        max-height: 90vh;
+        border-radius: 8px;
+    }
+</style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#E67E22",
+                        "white": "#ffffff",
+                        "charcoal": "#2c3e50",
+                    },
+                    fontFamily: {
+                        "display": ["Montserrat", "sans-serif"],
+                        "body": ["Open Sans", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-white text-charcoal min-h-screen">
+    <div class="relative flex h-auto w-full flex-col overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+
+            <!-- Header -->
+            <header
+                class="flex items-center justify-between border-b border-slate-100 px-6 md:px-20 py-6 bg-white/95 backdrop-blur-md sticky top-0 z-50">
+                <div class="flex items-center gap-4">
+                    <img src="images/icon-transparent.png" alt="Logo" class="size-12">
+                    <h2 class="text-xl font-extrabold tracking-tight font-display">Thanh (Jonathan) Bui</h2>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="flex flex-1 justify-center py-16 md:py-24 px-6 md:px-20">
+                <div class="layout-content-container flex flex-col max-w-[1400px] flex-1">
+
+                    <!-- Hero Section -->
+                    <div class="flex flex-col items-center mb-24 text-center">
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-40 border-4 border-slate-50 shadow-lg mb-8"
+                            style='background-image: url("images/profile.jpg");'></div>
+                        <div class="max-w-3xl">
+                            <h1 class="text-charcoal text-4xl md:text-6xl font-bold leading-tight tracking-tight mb-4">
+                                Full-Stack Product Builder</h1>
+                            <p class="text-primary text-xl md:text-2xl font-semibold mb-2">8 Years Building Fiat-Crypto Bridge &amp; QR Payment</p>
+                            <p class="text-slate-500 text-lg">CEX/DEX, Fiat-Crypto On/Off-Ramps &amp; QR Payments</p>
+                        </div>
+                        <div class="flex flex-wrap justify-center gap-6 mt-12">
+                            <a href="resume.pdf" download
+                                class="flex items-center justify-center rounded-full h-14 px-10 border-2 border-slate-200 text-charcoal font-bold tracking-wide uppercase hover:border-primary hover:text-primary transition-all">
+                                <span class="material-symbols-outlined mr-2 text-xl">download</span>
+                                Download CV
+                            </a>
+                            <a href="https://www.linkedin.com/in/thanhbui-jonathan/" target="_blank" rel="noopener noreferrer"
+                                class="flex items-center justify-center rounded-full h-14 px-10 bg-primary text-white font-bold tracking-wide uppercase hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+                                <span class="material-symbols-outlined mr-2 text-xl">mail</span>
+                                Contact Me
+                            </a>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="flex flex-wrap justify-center gap-3 mt-10">
+                            <span class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold tracking-wide">Product Roadmap</span>
+                            <span class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold tracking-wide">Fiat-Crypto On/Off-Ramp</span>
+                            <span class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold tracking-wide">DeFi · AMM</span>
+                            <span class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold tracking-wide">Full-Stack Builder</span>
+                            <span class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold tracking-wide">User Research</span>
+                            <span class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-semibold tracking-wide">Microcontroller</span>
+                        </div>
+                    </div>
+
+                    <!-- Section Header -->
+                    <div class="mb-16 border-b border-slate-100 pb-4">
+                        <h2
+                            class="text-charcoal text-3xl font-bold flex items-center gap-4 uppercase tracking-tighter font-display">
+                            <span class="material-symbols-outlined text-primary text-4xl">play_circle</span>
+                            Project Showcase &amp; Video Demos
+                        </h2>
+                    </div>
+
+                    <!-- Project Showcases -->
+                    <div class="flex flex-col gap-40">
+
+                        <!-- Project 1: XpressFlow -->
+                        <section id="project-xpressflow" class="flex flex-col lg:flex-row gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div
+                                    class="relative aspect-video bg-charcoal/5 rounded-3xl shadow-xl overflow-hidden group">
+                                    <!-- Image Display -->
+                                    <div class="main-project-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/qr-payment/qr-payment-1.jpeg");'
+                                        data-action="openLightbox" data-project="project-xpressflow">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Video Display (hidden by default) -->
+                                    <div class="main-project-video absolute inset-0 hidden bg-black/95">
+                                        <video class="w-full h-full object-contain" controls>
+                                            <source src="images/qr-payment/iOS-demo-qr-payment-usdt.MP4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <!-- Enlarge button for video -->
+                                        <button data-action="openVideoModal" data-video="images/qr-payment/iOS-demo-qr-payment-usdt.MP4"
+                                            class="absolute top-4 right-4 w-16 h-16 bg-black/50 hover:bg-primary/90 text-white rounded-full flex items-center justify-center transition-all z-10 border-2 border-white/20 hover:border-white/60">
+                                            <span class="material-symbols-outlined text-2xl">fullscreen</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-xpressflow" data-image="images/qr-payment/qr-payment-1.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/qr-payment/qr-payment-1.jpeg");'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-xpressflow" data-image="images/qr-payment/qr-payment-2.jpeg" data-index="1"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/qr-payment/qr-payment-2.jpeg");'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-xpressflow" data-image="images/qr-payment/qr-payment-3.jpeg" data-index="2"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/qr-payment/qr-payment-3.jpeg");'></div>
+                                    </button>
+                                    <button data-action="switchVideo" data-project="project-xpressflow" data-index="3"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all bg-charcoal/10 rounded-xl flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-primary text-4xl">play_circle</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">XpressFlow</h3>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A B2B2C crypto payment gateway that enables fintech businesses to offer QR payments to their end customers, with real-time settlement and developer-friendly integration.</p>
+                                    <div class="mb-8">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">Full-stack builder. Designed UX/UI for the landing page and merchant dashboard using Lovable and Claude Code. Planned the system architecture and coordinated backend and frontend development. Built and maintained the product roadmap. To meet market requirements, we pivoted from off-ramp transactions settling in 15 minutes to QR payments completing in under 5 seconds.</p>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <button data-action="openVideoModal" data-video="images/qr-payment/iOS-demo-qr-payment-usdt.MP4"
+                                            class="flex-1 lg:flex-none h-14 px-10 bg-primary text-white font-bold tracking-wide uppercase shadow-lg hover:translate-y-[-2px] transition-all rounded-full">Watch
+                                            Demo</button>
+                                        <a href="https://xpressflow.org/" target="_blank" rel="noopener noreferrer"
+                                            class="flex-1 lg:flex-none h-14 px-10 border-2 border-primary text-primary font-bold tracking-wide uppercase hover:bg-primary hover:text-white transition-all rounded-full flex items-center justify-center">Live
+                                            Site</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 2: Client Portal -->
+                        <section id="project-client-portal" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div
+                                    class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                                    <div class="main-project-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/client-portal/portal-dashboard.jpeg");'
+                                        data-action="openLightbox" data-project="project-client-portal">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-client-portal" data-image="images/client-portal/portal-dashboard.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/client-portal/portal-dashboard.jpeg");'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-client-portal" data-image="images/client-portal/portal-login.jpeg" data-index="1"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/client-portal/portal-login.jpeg");'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-client-portal" data-image="images/client-portal/portal-api-keys.jpeg" data-index="2"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/client-portal/portal-api-keys.jpeg");'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-client-portal" data-image="images/client-portal/portal-wallet.jpeg" data-index="3"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/client-portal/portal-wallet.jpeg");'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-client-portal" data-image="images/client-portal/portal-webhook.jpeg" data-index="4"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/client-portal/portal-webhook.jpeg");'></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Client Portal</h3>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A full-featured portal for merchants to monitor transaction status, view analytics and manage their accounts.</p>
+                                    <div class="mb-8">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">Product coordinator and frontend developer. Worked directly with the partner's tech lead to gather requirements and align on scope. Coordinated the backend and frontend development teams. Separately, took hands-on ownership of the frontend — translating Figma designs into production-ready code. It was interesting to see how closely the app matched the Figma designs — up to 95–98% fidelity — with help from Claude Code and the Figma MCP.</p>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="flex gap-4 justify-end">
+                                        <button
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center"><span
+                                                class="material-symbols-outlined">code</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 3: NemoSwap DEX -->
+                        <section id="project-nemoswap" class="flex flex-col lg:flex-row gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div
+                                    class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                                    <div class="main-project-image absolute inset-0 bg-no-repeat bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/dex/dex-1.jpeg"); background-size: contain; background-color: #1e293b;'
+                                        data-action="openLightbox" data-project="project-nemoswap">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="main-project-video absolute inset-0 hidden bg-black/95">
+                                        <video class="w-full h-full object-contain" controls>
+                                            <source src="images/dex/RPReplay_Final1772623599.MP4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <button data-action="openVideoModal" data-video="images/dex/RPReplay_Final1772623599.MP4"
+                                            class="absolute top-4 right-4 w-16 h-16 bg-black/50 hover:bg-primary/90 text-white rounded-full flex items-center justify-center transition-all z-10 border-2 border-white/20 hover:border-white/60">
+                                            <span class="material-symbols-outlined text-2xl">fullscreen</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-nemoswap" data-image="images/dex/dex-1.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-no-repeat bg-center"
+                                            style='background-image: url("images/dex/dex-1.jpeg"); background-size: contain; background-color: #1e293b;'></div>
+                                    </button>
+                                    <button data-action="switchVideo" data-project="project-nemoswap" data-index="1"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all bg-charcoal/10 rounded-xl flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-primary text-4xl">play_circle</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">NemoSwap</h3>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A decentralised exchange built on the RENEC blockchain, featuring cross-chain bridging, a fiat-crypto P2P market and gasless transactions for easy onboarding.</p>
+                                    <div class="mb-8">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">A standalone exchange that I was responsible for, from design to launch. The goal was to bring DeFi to non-tech users. We tackled this with a decentralised P2P market, gasless transactions, and a non-custodial wallet with email login. Lessons? The cost of decentralisation is high — especially when users don't prioritise it yet. Also, the dark theme hindered growth — users over 30, especially those with reduced contrast sensitivity or eye strain, struggled to read the interface clearly.</p>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <a href="https://nemo.renec.org/swap" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live demo">
+                                            <span class="material-symbols-outlined">open_in_new</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 4: Remitano -->
+                        <section id="project-remitano" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div
+                                    class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                                    <div class="main-project-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/tracking/profit-tracking.jpeg");'
+                                        data-action="openLightbox" data-project="project-remitano">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-remitano" data-image="images/tracking/profit-tracking.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/tracking/profit-tracking.jpeg");'></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Remitano</h3>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A centralised exchange for buying and selling crypto with local fiat currencies, serving 2M+ users across Vietnam, Nigeria, India and South Africa.</p>
+                                    <div class="mb-8">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">I worked at Remitano for 8 years across various roles. The profit tracking feature was my first project as a product owner. It came from interviewing users, reading through support chats, and watching how people used the app. The main challenge was designing a UI compact and clear enough to fit within the existing swap page without disrupting the trading flow.</p>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="flex gap-4 justify-end">
+                                        <a href="https://remitano.com" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live demo">
+                                            <span class="material-symbols-outlined">open_in_new</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 5: Cellzier -->
+                        <section id="project-cellzier" class="flex flex-col lg:flex-row gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div
+                                    class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                                    <div class="main-project-image absolute inset-0 bg-no-repeat bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/cellzier/cellzier-bot.jpeg"); background-size: contain; background-color: #1e293b;'
+                                        data-action="openLightbox" data-project="project-cellzier">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="main-project-video absolute inset-0 hidden bg-black/95">
+                                        <video class="w-full h-full object-contain" controls>
+                                            <source src="images/cellzier/RPReplay_Final1772624461.MP4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <button data-action="openVideoModal" data-video="images/cellzier/RPReplay_Final1772624461.MP4"
+                                            class="absolute top-4 right-4 w-16 h-16 bg-black/50 hover:bg-primary/90 text-white rounded-full flex items-center justify-center transition-all z-10 border-2 border-white/20 hover:border-white/60">
+                                            <span class="material-symbols-outlined text-2xl">fullscreen</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-cellzier" data-image="images/cellzier/cellzier-bot.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-no-repeat bg-center"
+                                            style='background-image: url("images/cellzier/cellzier-bot.jpeg"); background-size: contain; background-color: #1e293b;'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-cellzier" data-image="images/cellzier/cellzier-web.jpeg" data-index="1"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/cellzier/cellzier-web.jpeg");'></div>
+                                    </button>
+                                    <button data-action="switchVideo" data-project="project-cellzier" data-index="2" data-video="images/cellzier/RPReplay_Final1772624461.MP4"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all bg-charcoal/10 rounded-xl flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-primary text-4xl">play_circle</span>
+                                    </button>
+                                    <button data-action="switchVideo" data-project="project-cellzier" data-index="3" data-video="images/cellzier/RPReplay_Final1772624574.MP4"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all bg-charcoal/10 rounded-xl flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-primary text-4xl">play_circle</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Cellzier</h3>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A Discord bot and marketplace for a phone builder community, with an LLM-powered assistant that helps users troubleshoot device issues.</p>
+                                    <div class="mb-8">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">Full-stack builder (freelance). Built a Discord bot and marketplace for a phone builder community. The bot uses an LLM to help users diagnose and fix phone issues. Key techniques include query rewriting with added context (device models, common issues, known solutions) to improve answer accuracy, and Pydantic-based JSON schema validation to ensure data integrity.</p>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <a href="https://cellzier.com.au/" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live demo">
+                                            <span class="material-symbols-outlined">open_in_new</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 6: DCA Bot -->
+                        <section id="project-dca-bot" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div
+                                    class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                                    <div class="main-project-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/dca-bot/dca-bot.jpeg");'
+                                        data-action="openLightbox" data-project="project-dca-bot">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-dca-bot" data-image="images/dca-bot/dca-bot.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-cover bg-center"
+                                            style='background-image: url("images/dca-bot/dca-bot.jpeg");'></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">DCA Bot</h3>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A personal project: a bot that dollar-cost averages into SOL, BTC and other crypto assets by creating AMM positions instead of simple limit orders, optimising for yield.</p>
+                                    <div class="mb-8">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">Solo builder — fully coded with Claude. Creates concentrated liquidity positions on AMM pools (Uniswap, Orca, Meteora) across Solana, BSC, Unichain and Arbitrum. Key learnings: packing instructions into a single transaction to save gas, batching RPC calls to reduce latency and avoid rate limits, and writing isolated test scripts for each contract interaction to debug reliably.</p>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="flex gap-4 justify-end">
+                                        <button
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center"><span
+                                                class="material-symbols-outlined">code</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 7: Robotics -->
+                        <section id="project-robotics" class="flex flex-col lg:flex-row gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div class="relative aspect-video rounded-2xl shadow-xl overflow-hidden group" style="background-color: #f1f5f9;">
+                                    <div class="main-project-image absolute inset-0 bg-no-repeat bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/robotics/robotics-arms-gazebo.png"); background-size: contain; background-color: #f1f5f9;'
+                                        data-action="openLightbox" data-project="project-robotics">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-robotics" data-image="images/robotics/robotics-arms-gazebo.png" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-no-repeat bg-center" style='background-image: url("images/robotics/robotics-arms-gazebo.png"); background-size: contain; background-color: #f1f5f9;'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-robotics" data-image="images/robotics/robotics-hero.png" data-index="1"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-no-repeat bg-center" style='background-image: url("images/robotics/robotics-hero.png"); background-size: contain; background-color: #f1f5f9;'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-robotics" data-image="images/robotics/robotics-arm.png" data-index="2"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-no-repeat bg-center" style='background-image: url("images/robotics/robotics-arm.png"); background-size: contain; background-color: #f1f5f9;'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-robotics" data-image="images/robotics/robotics-kinematics.jpeg" data-index="3"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-no-repeat bg-center" style='background-image: url("images/robotics/robotics-kinematics.jpeg"); background-size: contain; background-color: #f1f5f9;'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-robotics" data-image="images/robotics/robotics-pipeline.png" data-index="4"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-no-repeat bg-center" style='background-image: url("images/robotics/robotics-pipeline.png"); background-size: contain; background-color: #f1f5f9;'></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Robotics</h3>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A series of robotics projects including simulation of robot kinematics, deep learning, and computer vision — built across online courses and a university delta bot project.</p>
+                                    <div class="mb-8">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">These came from various online courses I took — except the delta bot simulation, which I built for a uni project. I learned how to use ROS, Gazebo and rviz to simulate robot kinematics, mobile robot navigation, and computer vision, and how to set up and train a convolutional neural network (CNN) to recognise objects. Good times.</p>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="flex gap-4 flex-wrap">
+                                        <a href="https://github.com/congthanh184/home-service-robot" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Home Service Robot">
+                                            <span class="material-symbols-outlined">code</span></a>
+                                        <a href="https://github.com/congthanh184/RoboND-DeepLearning-Project" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Deep Learning Project">
+                                            <span class="material-symbols-outlined">psychology</span></a>
+                                        <a href="https://github.com/congthanh184/RoboND-Kinematics-Project" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Kinematics Project">
+                                            <span class="material-symbols-outlined">settings_motion_mode</span></a>
+                                        <a href="https://github.com/congthanh184/DeltaDemo" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Delta Robot Demo">
+                                            <span class="material-symbols-outlined">precision_manufacturing</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 8: Protean -->
+                        <section id="project-protean" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                                    <div class="main-project-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/protean/protean-lab.jpeg");'
+                                        data-action="openLightbox" data-project="project-protean">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-protean" data-image="images/protean/protean-lab.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-cover bg-center" style='background-image: url("images/protean/protean-lab.jpeg");'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-protean" data-image="images/protean/protean-wave-energy.jpg" data-index="1"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-no-repeat bg-center" style='background-image: url("images/protean/protean-wave-energy.jpg"); background-size: contain; background-color: #1e293b;'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-protean" data-image="images/protean/protean-concept.jpeg" data-index="2"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-cover bg-center" style='background-image: url("images/protean/protean-concept.jpeg");'></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Protean</h3>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">An embedded system on pcDuino that acquires data from GPS and gyroscope sensors (MPU) and syncs to the cloud — used to report on a wave energy generator in Perth, WA.</p>
+                                    <div class="mb-8">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">My last microcontroller project before moving into cryptocurrency. Spent considerable effort debugging a multithreading issue and finding a solution to keep the system running stably over testing periods that could last for weeks.</p>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="flex gap-4 justify-end">
+                                        <a href="https://thewest.com.au/news/wa/protean-to-ride-bunbury-port-wave-ng-ya-102419" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="News article">
+                                            <span class="material-symbols-outlined">newspaper</span></a>
+                                        <a href="https://github.com/congthanh184/Protean" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Source code">
+                                            <span class="material-symbols-outlined">code</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 9: Mat Than -->
+                        <section id="project-mat-than" class="flex flex-col lg:flex-row gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                                    <div class="main-project-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/mat-than/mat-than.jpeg");'
+                                        data-action="openLightbox" data-project="project-mat-than">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-mat-than" data-image="images/mat-than/mat-than.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-cover bg-center" style='background-image: url("images/mat-than/mat-than.jpeg");'></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Mắt Thần</h3>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">Smart glasses for the visually impaired, equipped with distance sensors and vibration motors to signal the wearer to avoid obstacles.</p>
+                                    <div class="mb-8">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">A community project by Dr. Nguyen Ba Hai that I was lucky to be part of. I refactored the codebase to improve response time and accuracy, and got to learn about haptics along the way. Also debugged a "weird" issue where the glasses would freeze in cold environments — it turned out a component had a narrower operating temperature range than required.</p>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <a href="https://nld.com.vn/phong-su-ts-nguyen-ba-hai-va-du-an-mat-than-cho-nguoi-khiem-thi-19600008464.htm" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="News article">
+                                            <span class="material-symbols-outlined">newspaper</span></a>
+                                        <a href="https://github.com/congthanh184/BlindedGlasses" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Source code">
+                                            <span class="material-symbols-outlined">code</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 10: HDL USB 9090 -->
+                        <section id="project-hdl-9090" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div class="relative aspect-video rounded-2xl shadow-xl overflow-hidden group" style="background-color: #f1f5f9;">
+                                    <div class="main-project-image absolute inset-0 bg-no-repeat bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/hdl-9090/hdl-usb.jpeg"); background-size: contain; background-color: #f1f5f9;'
+                                        data-action="openLightbox" data-project="project-hdl-9090">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-hdl-9090" data-image="images/hdl-9090/hdl-usb.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-no-repeat bg-center" style='background-image: url("images/hdl-9090/hdl-usb.jpeg"); background-size: contain; background-color: #f1f5f9;'></div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">HDL USB 9090</h3>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A low-cost DAQ card built with a PIC16 microcontroller as a student-friendly alternative to National Instruments (NI) VISA cards, supporting USB connection.</p>
+                                    <div class="mb-8">
+                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">My first commercial project. Built a data acquisition card using a PIC16 microcontroller with USB support — a low-cost alternative to National Instruments (NI) VISA cards for students.</p>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="flex gap-4 justify-end">
+                                        <a href="https://www.scribd.com/doc/230370459/Huong-Dan-Su-Dung-HDL-USB-9090" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="User guide">
+                                            <span class="material-symbols-outlined">description</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="mt-20 border-t border-slate-100 px-6 md:px-20 py-12 bg-slate-50">
+                <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div class="flex items-center gap-4">
+                        <img src="images/icon-transparent.png" alt="Logo" class="size-8">
+                        <p class="text-slate-500 text-sm font-display font-semibold tracking-tight">© Built with Stitch and Claude Cowork</p>
+                    </div>
+                    <div class="flex gap-8">
+                        <a class="text-slate-400 hover:text-primary transition-colors" href="https://github.com/congthanh184" target="_blank" rel="noopener noreferrer"><span
+                                class="material-symbols-outlined">terminal</span></a>
+                        <a class="text-slate-400 hover:text-primary transition-colors" href="https://www.linkedin.com/in/thanhbui-jonathan/" target="_blank" rel="noopener noreferrer"><span
+                                class="material-symbols-outlined">share</span></a>
+                        <a class="text-slate-400 hover:text-primary transition-colors" href="mailto:jonathan.tcbui@gmail.com"><span
+                                class="material-symbols-outlined">alternate_email</span></a>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal-overlay">
+        <button class="modal-close" data-action="closeVideoModal">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <div class="modal-content">
+            <video id="modalVideo" class="modal-video" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Image Lightbox -->
+    <div id="imageLightbox" class="modal-overlay">
+        <button class="modal-close" data-action="closeLightbox">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <button class="lightbox-nav prev" data-action="navigateLightbox" data-direction="-1">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <button class="lightbox-nav next" data-action="navigateLightbox" data-direction="1">
+            <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+        <div class="modal-content">
+            <img id="lightboxImage" class="lightbox-image" src="" alt="Project Screenshot">
+        </div>
+    </div>
+
+    <script>
+        // Project Details Toggle
+        function toggleDetails(btn) {
+            if (!btn || !(btn instanceof Element)) {
+                console.error('toggleDetails: Invalid button element');
+                return;
+            }
+            const container = btn.previousElementSibling;
+            if (!container) {
+                console.error('toggleDetails: No previous sibling found');
+                return;
+            }
+            const isExpanded = container.dataset.expanded === 'true';
+            if (isExpanded) {
+                container.style.maxHeight = '3.75rem';
+                container.dataset.expanded = 'false';
+                btn.textContent = 'Read more ↓';
+            } else {
+                container.style.maxHeight = container.scrollHeight + 'px';
+                container.dataset.expanded = 'true';
+                btn.textContent = 'Read less ↑';
+            }
+        }
+
+        // Video Modal Functions
+        function openVideoModal(videoSrc) {
+            if (!videoSrc || typeof videoSrc !== 'string') {
+                console.error('openVideoModal: Invalid video source');
+                return;
+            }
+            // Pause any inline project videos that may be playing
+            document.querySelectorAll('.main-project-video video').forEach(v => v.pause());
+
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            const source = video?.querySelector('source');
+
+            if (!modal || !video || !source) {
+                console.error('openVideoModal: Required DOM elements not found');
+                return;
+            }
+
+            source.src = videoSrc;
+            video.load();
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+
+            modal.classList.remove('active');
+            video.pause();
+            document.body.style.overflow = 'auto';
+        }
+
+        // Portrait mobile screenshots — contain + dark background
+        const mobileImages = new Set([
+            'images/dex/dex-1.jpeg',
+            'images/cellzier/cellzier-bot.jpeg',
+            'images/protean/protean-wave-energy.jpg'
+        ]);
+
+        // Diagrams / mixed-ratio images — contain + light background
+        const diagramImages = new Set([
+            'images/robotics/robotics-arms-gazebo.png',
+            'images/robotics/robotics-hero.png',
+            'images/robotics/robotics-arm.png',
+            'images/robotics/robotics-kinematics.jpeg',
+            'images/robotics/robotics-pipeline.png',
+            'images/hdl-9090/hdl-usb.jpeg'
+        ]);
+
+        // Gallery Management Functions
+        let projectGalleries = {
+            'project-xpressflow': {
+                images: [
+                    'images/qr-payment/qr-payment-1.jpeg',
+                    'images/qr-payment/qr-payment-2.jpeg',
+                    'images/qr-payment/qr-payment-3.jpeg'
+                ],
+                currentIndex: 0,
+                isVideo: false
+            },
+            'project-client-portal': {
+                images: [
+                    'images/client-portal/portal-dashboard.jpeg',
+                    'images/client-portal/portal-login.jpeg',
+                    'images/client-portal/portal-api-keys.jpeg',
+                    'images/client-portal/portal-wallet.jpeg',
+                    'images/client-portal/portal-webhook.jpeg'
+                ],
+                currentIndex: 0,
+                isVideo: false
+            },
+            'project-nemoswap': {
+                images: ['images/dex/dex-1.jpeg'],
+                currentIndex: 0,
+                isVideo: false
+            },
+            'project-remitano': {
+                images: ['images/tracking/profit-tracking.jpeg'],
+                currentIndex: 0,
+                isVideo: false
+            },
+            'project-cellzier': {
+                images: [
+                    'images/cellzier/cellzier-bot.jpeg',
+                    'images/cellzier/cellzier-web.jpeg'
+                ],
+                currentIndex: 0,
+                isVideo: false
+            },
+            'project-dca-bot': {
+                images: ['images/dca-bot/dca-bot.jpeg'],
+                currentIndex: 0,
+                isVideo: false
+            },
+            'project-robotics': {
+                images: [
+                    'images/robotics/robotics-arms-gazebo.png',
+                    'images/robotics/robotics-hero.png',
+                    'images/robotics/robotics-arm.png',
+                    'images/robotics/robotics-kinematics.jpeg',
+                    'images/robotics/robotics-pipeline.png'
+                ],
+                currentIndex: 0,
+                isVideo: false
+            },
+            'project-protean': {
+                images: [
+                    'images/protean/protean-lab.jpeg',
+                    'images/protean/protean-wave-energy.jpg',
+                    'images/protean/protean-concept.jpeg'
+                ],
+                currentIndex: 0,
+                isVideo: false
+            },
+            'project-mat-than': {
+                images: ['images/mat-than/mat-than.jpeg'],
+                currentIndex: 0,
+                isVideo: false
+            },
+            'project-hdl-9090': {
+                images: ['images/hdl-9090/hdl-usb.jpeg'],
+                currentIndex: 0,
+                isVideo: false
+            }
+        };
+
+        function switchMainImage(projectId, imageSrc, thumbnailIndex) {
+            if (!projectId || typeof projectId !== 'string') {
+                console.error('switchMainImage: Invalid project ID');
+                return;
+            }
+            if (!imageSrc || typeof imageSrc !== 'string') {
+                console.error('switchMainImage: Invalid image source');
+                return;
+            }
+            if (typeof thumbnailIndex !== 'number' || thumbnailIndex < 0) {
+                console.error('switchMainImage: Invalid thumbnail index');
+                return;
+            }
+
+            const mainImageDiv = document.querySelector(`#${CSS.escape(projectId)} .main-project-image`);
+            const mainVideoDiv = document.querySelector(`#${CSS.escape(projectId)} .main-project-video`);
+
+            if (!mainImageDiv) {
+                console.error('switchMainImage: Main image container not found');
+                return;
+            }
+
+            const video = mainVideoDiv ? mainVideoDiv.querySelector('video') : null;
+
+            // Pause video if playing
+            if (video) {
+                video.pause();
+            }
+
+            // Show image, hide video
+            mainImageDiv.classList.remove('hidden');
+            if (mainVideoDiv) {
+                mainVideoDiv.classList.add('hidden');
+            }
+
+            mainImageDiv.style.backgroundImage = `url("${imageSrc}")`;
+
+            // Handle portrait mobile screenshots — dark contain
+            if (mobileImages.has(imageSrc)) {
+                mainImageDiv.style.backgroundSize = 'contain';
+                mainImageDiv.style.backgroundRepeat = 'no-repeat';
+                mainImageDiv.style.backgroundColor = '#1e293b';
+            // Handle diagrams / mixed-ratio images — light contain
+            } else if (diagramImages.has(imageSrc)) {
+                mainImageDiv.style.backgroundSize = 'contain';
+                mainImageDiv.style.backgroundRepeat = 'no-repeat';
+                mainImageDiv.style.backgroundColor = '#f1f5f9';
+            } else {
+                mainImageDiv.style.backgroundSize = 'cover';
+                mainImageDiv.style.backgroundRepeat = '';
+                mainImageDiv.style.backgroundColor = '';
+            }
+
+            // Store current index for this project
+            if (projectGalleries[projectId]) {
+                projectGalleries[projectId].currentIndex = thumbnailIndex;
+                projectGalleries[projectId].isVideo = false;
+            }
+
+            // Update active thumbnail styling
+            const thumbnails = document.querySelectorAll(`#${CSS.escape(projectId)} .thumbnail-btn`);
+            thumbnails.forEach((thumb, idx) => {
+                if (idx === thumbnailIndex) {
+                    thumb.classList.add('border-primary', 'border-2');
+                    thumb.classList.remove('border-slate-200', 'border', 'opacity-80');
+                } else {
+                    thumb.classList.remove('border-primary', 'border-2');
+                    thumb.classList.add('border-slate-200', 'border', 'opacity-80');
+                }
+            });
+        }
+
+        function switchToVideo(projectId, thumbnailIndex, videoSrc) {
+            if (!projectId || typeof projectId !== 'string') {
+                console.error('switchToVideo: Invalid project ID');
+                return;
+            }
+            if (typeof thumbnailIndex !== 'number' || thumbnailIndex < 0) {
+                console.error('switchToVideo: Invalid thumbnail index');
+                return;
+            }
+
+            const mainImageDiv = document.querySelector(`#${CSS.escape(projectId)} .main-project-image`);
+            const mainVideoDiv = document.querySelector(`#${CSS.escape(projectId)} .main-project-video`);
+
+            if (!mainImageDiv || !mainVideoDiv) {
+                console.error('switchToVideo: Required containers not found');
+                return;
+            }
+
+            // If a specific video source is provided, swap it in
+            if (videoSrc && typeof videoSrc === 'string') {
+                const videoEl = mainVideoDiv.querySelector('video');
+                const sourceEl = videoEl?.querySelector('source');
+                if (videoEl && sourceEl) {
+                    sourceEl.src = videoSrc;
+                    videoEl.load();
+                    const enlargeBtn = mainVideoDiv.querySelector('button');
+                    if (enlargeBtn) {
+                        enlargeBtn.setAttribute('data-video', videoSrc);
+                    }
+                }
+            }
+
+            // Hide image, show video
+            mainImageDiv.classList.add('hidden');
+            mainVideoDiv.classList.remove('hidden');
+
+            // Store current state
+            if (projectGalleries[projectId]) {
+                projectGalleries[projectId].currentIndex = thumbnailIndex;
+                projectGalleries[projectId].isVideo = true;
+            }
+
+            // Update active thumbnail styling
+            const thumbnails = document.querySelectorAll(`#${CSS.escape(projectId)} .thumbnail-btn`);
+            thumbnails.forEach((thumb, idx) => {
+                if (idx === thumbnailIndex) {
+                    thumb.classList.add('border-primary', 'border-2');
+                    thumb.classList.remove('border-slate-200', 'border', 'opacity-80');
+                } else {
+                    thumb.classList.remove('border-primary', 'border-2');
+                    thumb.classList.add('border-slate-200', 'border', 'opacity-80');
+                }
+            });
+        }
+
+        function openLightboxFromProject(projectId) {
+            if (!projectId || typeof projectId !== 'string') {
+                console.error('openLightboxFromProject: Invalid project ID');
+                return;
+            }
+            const gallery = projectGalleries[projectId];
+            if (gallery && !gallery.isVideo && Array.isArray(gallery.images)) {
+                openLightbox(gallery.images, gallery.currentIndex);
+            }
+        }
+
+        // Image Lightbox Functions
+        let currentImageIndex = 0;
+        let currentGalleryImages = [];
+
+        function openLightbox(images, startIndex = 0) {
+            if (!Array.isArray(images) || images.length === 0) {
+                console.error('openLightbox: Invalid images array');
+                return;
+            }
+            if (typeof startIndex !== 'number' || startIndex < 0 || startIndex >= images.length) {
+                console.error('openLightbox: Invalid start index');
+                startIndex = 0;
+            }
+
+            currentGalleryImages = images;
+            currentImageIndex = startIndex;
+
+            const modal = document.getElementById('imageLightbox');
+            const img = document.getElementById('lightboxImage');
+
+            if (!modal || !img) {
+                console.error('openLightbox: Required DOM elements not found');
+                return;
+            }
+
+            img.src = currentGalleryImages[currentImageIndex];
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('imageLightbox');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function navigateLightbox(direction) {
+            currentImageIndex += direction;
+
+            // Loop around
+            if (currentImageIndex < 0) {
+                currentImageIndex = currentGalleryImages.length - 1;
+            } else if (currentImageIndex >= currentGalleryImages.length) {
+                currentImageIndex = 0;
+            }
+
+            const img = document.getElementById('lightboxImage');
+            img.src = currentGalleryImages[currentImageIndex];
+        }
+
+        // Close modals when clicking outside content
+        document.getElementById('videoModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+
+        document.getElementById('imageLightbox').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            const videoModal = document.getElementById('videoModal');
+            const lightbox = document.getElementById('imageLightbox');
+
+            if (e.key === 'Escape') {
+                if (videoModal.classList.contains('active')) {
+                    closeVideoModal();
+                }
+                if (lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            }
+
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') {
+                    navigateLightbox(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateLightbox(1);
+                }
+            }
+        });
+
+        // Event delegation for all click events
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.addEventListener('click', function(e) {
+                const target = e.target.closest('[data-action]');
+                if (!target) return;
+
+                const action = target.dataset.action;
+
+                switch(action) {
+                    case 'toggleDetails':
+                        toggleDetails(target);
+                        break;
+                    case 'openVideoModal':
+                        openVideoModal(target.dataset.video);
+                        break;
+                    case 'closeVideoModal':
+                        closeVideoModal();
+                        break;
+                    case 'closeLightbox':
+                        closeLightbox();
+                        break;
+                    case 'navigateLightbox':
+                        navigateLightbox(parseInt(target.dataset.direction));
+                        break;
+                    case 'switchImage':
+                        switchMainImage(target.dataset.project, target.dataset.image, parseInt(target.dataset.index));
+                        break;
+                    case 'switchVideo':
+                        if (target.dataset.video) {
+                            switchToVideo(target.dataset.project, parseInt(target.dataset.index), target.dataset.video);
+                        } else {
+                            switchToVideo(target.dataset.project, parseInt(target.dataset.index));
+                        }
+                        break;
+                    case 'openLightbox':
+                        openLightboxFromProject(target.dataset.project);
+                        break;
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
