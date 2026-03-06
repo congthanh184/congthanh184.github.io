@@ -21,10 +21,14 @@
         --charcoal: #2c3e50;
         --accent-soft: #f8f9fa;
     }
+    * {
+        box-sizing: border-box;
+    }
     body {
         font-family: 'Open Sans', sans-serif;
         color: var(--charcoal);
         background-color: var(--bg-white);
+        overflow-x: hidden;
     }
     h1, h2, h3, h4, .font-display {
         font-family: 'Montserrat', sans-serif;
@@ -124,6 +128,135 @@
         max-height: 90vh;
         border-radius: 8px;
     }
+    /* Prevent overflow - target specific culprits */
+    body, html {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+    img, video, .aspect-video {
+        max-width: 100%;
+        height: auto;
+    }
+    /* Fix padding causing overflow */
+    main {
+        box-sizing: border-box;
+    }
+    .layout-content-container {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    /* Fix project sections on mobile */
+    @media (max-width: 1023px) {
+        header, main {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+        .layout-content-container {
+            max-width: calc(100vw - 2rem);
+        }
+    }
+    /* Gallery navigation buttons for mobile */
+    .gallery-nav-btn {
+        display: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 0, 0, 0.7);
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+    .gallery-nav-btn:hover {
+        background: rgba(0, 0, 0, 0.9);
+        transform: translateY(-50%) scale(1.1);
+    }
+    .gallery-nav-btn.prev {
+        left: 4px;
+    }
+    .gallery-nav-btn.next {
+        right: 4px;
+    }
+    @media (max-width: 1023px) {
+        .gallery-nav-btn {
+            display: flex;
+        }
+        .thumbnail-gallery {
+            overflow-x: hidden !important;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+        }
+        .thumbnail-gallery .thumbnail-btn {
+            scroll-snap-align: center;
+            flex-shrink: 0;
+        }
+        /* Grey out nav buttons for single-item galleries */
+        .single-item-gallery .gallery-nav-btn {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .single-item-gallery .gallery-nav-btn:hover {
+            background: rgba(0, 0, 0, 0.3);
+            transform: translateY(-50%);
+        }
+        /* Center first and last items with padding */
+        .thumbnail-gallery {
+            padding-left: calc(50% - 64px);
+            padding-right: calc(50% - 64px);
+        }
+    }
+    /* Pull to refresh indicator */
+    .pull-to-refresh {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(-100%);
+        background: rgba(230, 126, 34, 0.95);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 0 0 12px 12px;
+        font-weight: 600;
+        font-size: 14px;
+        z-index: 9998;
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .pull-to-refresh.visible {
+        transform: translateX(-50%) translateY(0);
+    }
+    /* Mobile text layout adjustments */
+    @media (max-width: 1023px) {
+        section[id^="project-"] {
+            flex-direction: column-reverse !important;
+        }
+        section[id^="project-"] .border-l-4,
+        section[id^="project-"] .border-r-4 {
+            border: none !important;
+            text-align: center !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+        section[id^="project-"] .editorial-block h3 {
+            text-align: center;
+        }
+        section[id^="project-"] .editorial-block p {
+            text-align: justify;
+        }
+        section[id^="project-"] .editorial-block .flex {
+            justify-content: center;
+        }
+    }
 </style>
     <script id="tailwind-config">
         tailwind.config = {
@@ -146,6 +279,10 @@
 </head>
 
 <body class="bg-white text-charcoal min-h-screen">
+    <div class="pull-to-refresh">
+        <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 4px;">refresh</span>
+        Release to refresh
+    </div>
     <div class="relative flex h-auto w-full flex-col overflow-x-hidden">
         <div class="layout-container flex h-full grow flex-col">
 
@@ -169,8 +306,8 @@
                         <div class="max-w-3xl">
                             <h1 class="text-charcoal text-4xl md:text-6xl font-bold leading-tight tracking-tight mb-4">
                                 Full-Stack Product Builder</h1>
-                            <p class="text-primary text-xl md:text-2xl font-semibold mb-2">8 Years Building Fiat-Crypto Bridge &amp; QR Payment</p>
-                            <p class="text-slate-500 text-lg">CEX/DEX, Fiat-Crypto On/Off-Ramps &amp; QR Payments</p>
+                            <p class="text-primary text-xl md:text-2xl font-semibold mb-2 lg:text-center text-justify">8 Years Building Fiat-Crypto Bridge &amp; QR Payment</p>
+                            <p class="text-slate-500 text-lg lg:text-center text-justify">CEX/DEX, Fiat-Crypto On/Off-Ramps &amp; QR Payments</p>
                         </div>
                         <div class="flex flex-wrap justify-center gap-6 mt-12">
                             <a href="resume.pdf" download
@@ -237,7 +374,14 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="relative">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-xpressflow" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-xpressflow" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                     <button data-action="switchImage" data-project="project-xpressflow" data-image="images/qr-payment/qr-payment-1.jpeg" data-index="0"
                                         class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
                                         <div class="w-full h-full bg-cover bg-center"
@@ -262,25 +406,38 @@
                                         </div>
                                     </button>
                                 </div>
+                                </div>
+                                <!-- Mobile icons under gallery -->
+                                <div class="lg:hidden flex gap-4 justify-center mt-4">
+                                    <button data-action="openVideoModal" data-video="images/qr-payment/iOS-demo-qr-payment-usdt.MP4"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Watch Demo">
+                                        <span class="material-symbols-outlined">play_circle</span>
+                                    </button>
+                                    <a href="https://xpressflow.org/" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live Site">
+                                        <span class="material-symbols-outlined">open_in_new</span>
+                                    </a>
+                                </div>
                             </div>
                             <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">XpressFlow</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A B2B2C crypto payment gateway that enables fintech businesses to offer QR payments to their end customers, with real-time settlement and developer-friendly integration.</p>
                                     <div class="mb-8">
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
-                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">Full-stack builder. Designed UX/UI for the landing page and merchant dashboard using Lovable and Claude Code. Planned the system architecture and coordinated backend and frontend development. Built and maintained the product roadmap. To meet market requirements, we pivoted from off-ramp transactions settling in 15 minutes to QR payments completing in under 5 seconds.</p>
+                                                                                <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">I handled the system architecture and kept the frontend and backend in sync. I kicked this one off using v0.dev and Supabase, but as things scaled, I quickly moved over to a full Rails backend. Later on, I used Lovable and Claude Code to give the UI/UX a proper revamp. The real challenge was the pivot: we went from off-ramp settlements that took 15 minutes to QR payments hitting in under 5 seconds to stay competitive.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
-                                    <div class="flex gap-4">
+                                    <div class="hidden lg:flex gap-4">
                                         <button data-action="openVideoModal" data-video="images/qr-payment/iOS-demo-qr-payment-usdt.MP4"
-                                            class="flex-1 lg:flex-none h-14 px-10 bg-primary text-white font-bold tracking-wide uppercase shadow-lg hover:translate-y-[-2px] transition-all rounded-full">Watch
-                                            Demo</button>
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Watch Demo">
+                                            <span class="material-symbols-outlined">play_circle</span>
+                                        </button>
                                         <a href="https://xpressflow.org/" target="_blank" rel="noopener noreferrer"
-                                            class="flex-1 lg:flex-none h-14 px-10 border-2 border-primary text-primary font-bold tracking-wide uppercase hover:bg-primary hover:text-white transition-all rounded-full flex items-center justify-center">Live
-                                            Site</a>
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live Site">
+                                            <span class="material-symbols-outlined">open_in_new</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -302,7 +459,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="relative">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-client-portal" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-client-portal" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                     <button data-action="switchImage" data-project="project-client-portal" data-image="images/client-portal/portal-dashboard.jpeg" data-index="0"
                                         class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
                                         <div class="w-full h-full bg-cover bg-center"
@@ -329,15 +493,15 @@
                                             style='background-image: url("images/client-portal/portal-webhook.jpeg");'></div>
                                     </button>
                                 </div>
+                                </div>
                             </div>
                             <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Client Portal</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A full-featured portal for merchants to monitor transaction status, view analytics and manage their accounts.</p>
                                     <div class="mb-8">
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
-                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">Product coordinator and frontend developer. Worked directly with the partner's tech lead to gather requirements and align on scope. Coordinated the backend and frontend development teams. Separately, took hands-on ownership of the frontend — translating Figma designs into production-ready code. It was interesting to see how closely the app matched the Figma designs — up to 95–98% fidelity — with help from Claude Code and the Figma MCP.</p>
+                                                                                <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed">For this one, I teamed up directly with the partner's tech lead to figure out the requirements and scope. We were running Java on the backend and Figma for the design side. My main focus was turning those Figma mocks into production-ready code. It was honestly cool to see the app hit 95–98% fidelity—it’s wild how close we got to the original designs thanks to Claude Code and the Figma MCP.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -371,7 +535,14 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="relative">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-nemoswap" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-nemoswap" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                     <button data-action="switchImage" data-project="project-nemoswap" data-image="images/dex/dex-1.jpeg" data-index="0"
                                         class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
                                         <div class="w-full h-full bg-no-repeat bg-center"
@@ -386,19 +557,25 @@
                                         </div>
                                     </button>
                                 </div>
+                                </div>
+                                <!-- Mobile icons under gallery -->
+                                <div class="lg:hidden flex gap-4 justify-center mt-4">
+                                    <a href="https://nemo.renec.org/swap" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live demo">
+                                        <span class="material-symbols-outlined">open_in_new</span></a>
+                                </div>
                             </div>
                             <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">NemoSwap</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A decentralised exchange built on the RENEC blockchain, featuring cross-chain bridging, a fiat-crypto P2P market and gasless transactions for easy onboarding.</p>
                                     <div class="mb-8">
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
-                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                                                                <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
                                             <p class="text-sm text-slate-500 leading-relaxed">A standalone exchange that I was responsible for, from design to launch. The goal was to bring DeFi to non-tech users. We tackled this with a decentralised P2P market, gasless transactions, and a non-custodial wallet with email login. Lessons? The cost of decentralisation is high — especially when users don't prioritise it yet. Also, the dark theme hindered growth — users over 30, especially those with reduced contrast sensitivity or eye strain, struggled to read the interface clearly.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
-                                    <div class="flex gap-4">
+                                    <div class="hidden lg:flex gap-4">
                                         <a href="https://nemo.renec.org/swap" target="_blank" rel="noopener noreferrer"
                                             class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live demo">
                                             <span class="material-symbols-outlined">open_in_new</span></a>
@@ -423,12 +600,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="relative single-item-gallery">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-remitano" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-remitano" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                     <button data-action="switchImage" data-project="project-remitano" data-image="images/tracking/profit-tracking.jpeg" data-index="0"
                                         class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
                                         <div class="w-full h-full bg-cover bg-center"
                                             style='background-image: url("images/tracking/profit-tracking.jpeg");'></div>
                                     </button>
+                                </div>
+                                </div>
+                                <!-- Mobile icons under gallery -->
+                                <div class="lg:hidden flex gap-4 justify-center mt-4">
+                                    <a href="https://remitano.com" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live demo">
+                                        <span class="material-symbols-outlined">open_in_new</span></a>
                                 </div>
                             </div>
                             <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
@@ -436,13 +627,12 @@
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Remitano</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A centralised exchange for buying and selling crypto with local fiat currencies, serving 2M+ users across Vietnam, Nigeria, India and South Africa.</p>
                                     <div class="mb-8">
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
-                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                                                                <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
                                             <p class="text-sm text-slate-500 leading-relaxed">I worked at Remitano for 8 years across various roles. The profit tracking feature was my first project as a product owner. It came from interviewing users, reading through support chats, and watching how people used the app. The main challenge was designing a UI compact and clear enough to fit within the existing swap page without disrupting the trading flow.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
-                                    <div class="flex gap-4 justify-end">
+                                    <div class="hidden lg:flex gap-4 justify-end">
                                         <a href="https://remitano.com" target="_blank" rel="noopener noreferrer"
                                             class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live demo">
                                             <span class="material-symbols-outlined">open_in_new</span></a>
@@ -477,7 +667,14 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="relative">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-cellzier" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-cellzier" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                     <button data-action="switchImage" data-project="project-cellzier" data-image="images/cellzier/cellzier-bot.jpeg" data-index="0"
                                         class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
                                         <div class="w-full h-full bg-no-repeat bg-center"
@@ -505,19 +702,25 @@
                                         </div>
                                     </button>
                                 </div>
+                                </div>
+                                <!-- Mobile icons under gallery -->
+                                <div class="lg:hidden flex gap-4 justify-center mt-4">
+                                    <a href="https://cellzier.com.au/" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live demo">
+                                        <span class="material-symbols-outlined">open_in_new</span></a>
+                                </div>
                             </div>
                             <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Cellzier</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A Discord bot and marketplace for a phone builder community, with an LLM-powered assistant that helps users troubleshoot device issues.</p>
                                     <div class="mb-8">
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
-                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                                                                <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
                                             <p class="text-sm text-slate-500 leading-relaxed">Full-stack builder (freelance). Built a Discord bot and marketplace for a phone builder community. The bot uses an LLM to help users diagnose and fix phone issues. Key techniques include query rewriting with added context (device models, common issues, known solutions) to improve answer accuracy, and Pydantic-based JSON schema validation to ensure data integrity.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
-                                    <div class="flex gap-4">
+                                    <div class="hidden lg:flex gap-4">
                                         <a href="https://cellzier.com.au/" target="_blank" rel="noopener noreferrer"
                                             class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live demo">
                                             <span class="material-symbols-outlined">open_in_new</span></a>
@@ -542,12 +745,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="relative single-item-gallery">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-dca-bot" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-dca-bot" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                     <button data-action="switchImage" data-project="project-dca-bot" data-image="images/dca-bot/dca-bot.jpeg" data-index="0"
                                         class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
                                         <div class="w-full h-full bg-cover bg-center"
                                             style='background-image: url("images/dca-bot/dca-bot.jpeg");'></div>
                                     </button>
+                                </div>
                                 </div>
                             </div>
                             <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
@@ -555,8 +766,7 @@
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">DCA Bot</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A personal project: a bot that dollar-cost averages into SOL, BTC and other crypto assets by creating AMM positions instead of simple limit orders, optimising for yield.</p>
                                     <div class="mb-8">
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
-                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                                                                <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
                                             <p class="text-sm text-slate-500 leading-relaxed">Solo builder — fully coded with Claude. Creates concentrated liquidity positions on AMM pools (Uniswap, Orca, Meteora) across Solana, BSC, Unichain and Arbitrum. Key learnings: packing instructions into a single transaction to save gas, batching RPC calls to reduce latency and avoid rate limits, and writing isolated test scripts for each contract interaction to debug reliably.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
@@ -580,7 +790,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="relative">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-protean" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-protean" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                     <button data-action="switchImage" data-project="project-protean" data-image="images/protean/protean-lab.jpeg" data-index="0"
                                         class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
                                         <div class="w-full h-full bg-cover bg-center" style='background-image: url("images/protean/protean-lab.jpeg");'></div>
@@ -594,19 +811,28 @@
                                         <div class="w-full h-full bg-cover bg-center" style='background-image: url("images/protean/protean-concept.jpeg");'></div>
                                     </button>
                                 </div>
+                                </div>
+                                <!-- Mobile icons under gallery -->
+                                <div class="lg:hidden flex gap-4 justify-center mt-4">
+                                    <a href="https://thewest.com.au/news/wa/protean-to-ride-bunbury-port-wave-ng-ya-102419" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="News article">
+                                        <span class="material-symbols-outlined">newspaper</span></a>
+                                    <a href="https://github.com/congthanh184/Protean" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Source code">
+                                        <span class="material-symbols-outlined">code</span></a>
+                                </div>
                             </div>
                             <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Protean</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">An embedded system on pcDuino that acquires data from GPS and gyroscope sensors (MPU) and syncs to the cloud — used to report on a wave energy generator in Perth, WA.</p>
                                     <div class="mb-8">
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
-                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                                                                <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
                                             <p class="text-sm text-slate-500 leading-relaxed">My last microcontroller project before moving into cryptocurrency. Spent considerable effort debugging a multithreading issue and finding a solution to keep the system running stably over testing periods that could last for weeks.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
-                                    <div class="flex gap-4">
+                                    <div class="hidden lg:flex gap-4">
                                         <a href="https://thewest.com.au/news/wa/protean-to-ride-bunbury-port-wave-ng-ya-102419" target="_blank" rel="noopener noreferrer"
                                             class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="News article">
                                             <span class="material-symbols-outlined">newspaper</span></a>
@@ -633,11 +859,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="relative single-item-gallery">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-mat-than" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-mat-than" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                     <button data-action="switchImage" data-project="project-mat-than" data-image="images/mat-than/mat-than.jpeg" data-index="0"
                                         class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
                                         <div class="w-full h-full bg-cover bg-center" style='background-image: url("images/mat-than/mat-than.jpeg");'></div>
                                     </button>
+                                </div>
+                                </div>
+                                <!-- Mobile icons under gallery -->
+                                <div class="lg:hidden flex gap-4 justify-center mt-4">
+                                    <a href="https://nld.com.vn/phong-su-ts-nguyen-ba-hai-va-du-an-mat-than-cho-nguoi-khiem-thi-19600008464.htm" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="News article">
+                                        <span class="material-symbols-outlined">newspaper</span></a>
+                                    <a href="https://github.com/congthanh184/BlindedGlasses" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Source code">
+                                        <span class="material-symbols-outlined">code</span></a>
                                 </div>
                             </div>
                             <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
@@ -645,13 +888,12 @@
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Mắt Thần</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">Smart glasses for the visually impaired, equipped with distance sensors and vibration motors to signal the wearer to avoid obstacles.</p>
                                     <div class="mb-8">
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
-                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                                                                <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
                                             <p class="text-sm text-slate-500 leading-relaxed">A community project by Dr. Nguyen Ba Hai that I was lucky to be part of. I refactored the codebase to improve response time and accuracy, and got to learn about haptics along the way. Also debugged a "weird" issue where the glasses would freeze in cold environments — it turned out a component had a narrower operating temperature range than required.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
-                                    <div class="flex gap-4 justify-end">
+                                    <div class="hidden lg:flex gap-4 justify-end">
                                         <a href="https://nld.com.vn/phong-su-ts-nguyen-ba-hai-va-du-an-mat-than-cho-nguoi-khiem-thi-19600008464.htm" target="_blank" rel="noopener noreferrer"
                                             class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="News article">
                                             <span class="material-symbols-outlined">newspaper</span></a>
@@ -678,11 +920,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="relative single-item-gallery">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-hdl-9090" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-hdl-9090" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                     <button data-action="switchImage" data-project="project-hdl-9090" data-image="images/hdl-9090/hdl-usb.jpeg" data-index="0"
                                         class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
                                         <div class="w-full h-full bg-no-repeat bg-center" style='background-image: url("images/hdl-9090/hdl-usb.jpeg"); background-size: contain; background-color: #f1f5f9;'></div>
                                     </button>
+                                </div>
+                                </div>
+                                <!-- Mobile icons under gallery -->
+                                <div class="lg:hidden flex gap-4 justify-center mt-4">
+                                    <a href="https://www.scribd.com/doc/230370459/Huong-Dan-Su-Dung-HDL-USB-9090" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="User guide">
+                                        <span class="material-symbols-outlined">description</span></a>
                                 </div>
                             </div>
                             <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
@@ -690,13 +946,12 @@
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">HDL USB 9090</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A low-cost DAQ card built with a PIC16 microcontroller as a student-friendly alternative to National Instruments (NI) VISA cards, supporting USB connection.</p>
                                     <div class="mb-8">
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
-                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                                                                <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
                                             <p class="text-sm text-slate-500 leading-relaxed">My first commercial project. Built a data acquisition card using a PIC16 microcontroller with USB support — a low-cost alternative to National Instruments (NI) VISA cards for students.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
-                                    <div class="flex gap-4">
+                                    <div class="hidden lg:flex gap-4">
                                         <a href="https://www.scribd.com/doc/230370459/Huong-Dan-Su-Dung-HDL-USB-9090" target="_blank" rel="noopener noreferrer"
                                             class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="User guide">
                                             <span class="material-symbols-outlined">description</span></a>
@@ -720,7 +975,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="relative">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-robotics" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-robotics" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
                                     <button data-action="switchImage" data-project="project-robotics" data-image="images/robotics/robotics-arms-gazebo.png" data-index="0"
                                         class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
                                         <div class="w-full h-full bg-no-repeat bg-center" style='background-image: url("images/robotics/robotics-arms-gazebo.png"); background-size: contain; background-color: #f1f5f9;'></div>
@@ -743,18 +1005,33 @@
                                     </button>
                                 </div>
                             </div>
+                                <!-- Mobile icons under gallery -->
+                                <div class="lg:hidden flex gap-4 flex-wrap justify-center mt-4">
+                                    <a href="https://github.com/congthanh184/home-service-robot" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Home Service Robot">
+                                        <span class="material-symbols-outlined">code</span></a>
+                                    <a href="https://github.com/congthanh184/RoboND-DeepLearning-Project" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Deep Learning Project">
+                                        <span class="material-symbols-outlined">psychology</span></a>
+                                    <a href="https://github.com/congthanh184/RoboND-Kinematics-Project" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Kinematics Project">
+                                        <span class="material-symbols-outlined">settings_motion_mode</span></a>
+                                    <a href="https://github.com/congthanh184/DeltaDemo" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Delta Robot Demo">
+                                        <span class="material-symbols-outlined">precision_manufacturing</span></a>
+                                </div>
+                            </div>
                             <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Robotics</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A series of robotics projects including simulation of robot kinematics, deep learning, and computer vision — built across online courses and a university delta bot project.</p>
                                     <div class="mb-8">
-                                        <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">My Role</p>
-                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                                                                <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
                                             <p class="text-sm text-slate-500 leading-relaxed">These came from various online courses I took — except the delta bot simulation, which I built for a uni project. I learned how to use ROS, Gazebo and rviz to simulate robot kinematics, mobile robot navigation, and computer vision, and how to set up and train a convolutional neural network (CNN) to recognise objects. Good times.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
-                                    <div class="flex gap-4 flex-wrap justify-end">
+                                    <div class="hidden lg:flex gap-4 flex-wrap justify-end">
                                         <a href="https://github.com/congthanh184/home-service-robot" target="_blank" rel="noopener noreferrer"
                                             class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Home Service Robot">
                                             <span class="material-symbols-outlined">code</span></a>
@@ -781,7 +1058,7 @@
                 <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                     <div class="flex items-center gap-4">
                         <img src="images/icon-transparent.png" alt="Logo" class="size-8">
-                        <p class="text-slate-500 text-sm font-display font-semibold tracking-tight">© Built with Stitch and Claude Cowork</p>
+                        <p class="text-slate-500 text-sm font-display font-semibold tracking-tight">© Built with Stitch and Claude</p>
                     </div>
                     <div class="flex gap-8">
                         <a class="text-slate-400 hover:text-primary transition-colors" href="https://github.com/congthanh184" target="_blank" rel="noopener noreferrer"><span
@@ -1202,6 +1479,88 @@
             }
         });
 
+        // Gallery scroll navigation - one item at a time
+        function scrollGallery(projectId, direction) {
+            const gallery = document.querySelector(`#${CSS.escape(projectId)} .thumbnail-gallery`);
+            if (!gallery) return;
+            
+            const thumbnails = gallery.querySelectorAll('.thumbnail-btn');
+            if (thumbnails.length === 0) return;
+            
+            // Find currently centered thumbnail
+            const galleryRect = gallery.getBoundingClientRect();
+            const galleryCenter = galleryRect.left + galleryRect.width / 2;
+            
+            let currentIndex = 0;
+            let minDistance = Infinity;
+            
+            thumbnails.forEach((thumb, index) => {
+                const thumbRect = thumb.getBoundingClientRect();
+                const thumbCenter = thumbRect.left + thumbRect.width / 2;
+                const distance = Math.abs(thumbCenter - galleryCenter);
+                
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    currentIndex = index;
+                }
+            });
+            
+            // Calculate next index
+            let nextIndex = currentIndex + direction;
+            if (nextIndex < 0) nextIndex = thumbnails.length - 1;
+            if (nextIndex >= thumbnails.length) nextIndex = 0;
+            
+            // Scroll to next thumbnail
+            thumbnails[nextIndex].scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center'
+            });
+        }
+
+        // Pull to refresh functionality
+        let pullStartY = 0;
+        let pullMoveY = 0;
+        let isPulling = false;
+        const pullThreshold = 80;
+        const pullIndicator = document.querySelector('.pull-to-refresh');
+
+        document.addEventListener('touchstart', function(e) {
+            if (window.scrollY === 0) {
+                pullStartY = e.touches[0].clientY;
+                isPulling = true;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchmove', function(e) {
+            if (!isPulling) return;
+            
+            pullMoveY = e.touches[0].clientY - pullStartY;
+            
+            if (pullMoveY > 0 && window.scrollY === 0) {
+                if (pullMoveY > pullThreshold) {
+                    pullIndicator.classList.add('visible');
+                    pullIndicator.innerHTML = '<span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 4px;">refresh</span>Release to refresh';
+                } else {
+                    pullIndicator.classList.remove('visible');
+                }
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchend', function(e) {
+            if (isPulling && pullMoveY > pullThreshold) {
+                pullIndicator.innerHTML = '<span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 4px; animation: spin 1s linear infinite;">refresh</span>Refreshing...';
+                setTimeout(() => {
+                    window.location.reload();
+                }, 300);
+            } else {
+                pullIndicator.classList.remove('visible');
+            }
+            isPulling = false;
+            pullStartY = 0;
+            pullMoveY = 0;
+        }, { passive: true });
+
         // Event delegation for all click events
         document.addEventListener('DOMContentLoaded', function() {
             document.body.addEventListener('click', function(e) {
@@ -1239,9 +1598,22 @@
                     case 'openLightbox':
                         openLightboxFromProject(target.dataset.project);
                         break;
+                    case 'scrollGallery':
+                        scrollGallery(target.dataset.project, parseInt(target.dataset.direction));
+                        break;
                 }
             });
         });
+
+        // Add spin animation for refresh icon
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 
 </body>
