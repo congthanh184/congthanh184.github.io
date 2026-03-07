@@ -117,6 +117,17 @@
     .lightbox-nav.next {
         right: 20px;
     }
+    .lightbox-nav.disabled {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.4);
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    .lightbox-nav.disabled:hover {
+        background: rgba(255, 255, 255, 0.05);
+        transform: translateY(-50%);
+    }
     .lightbox-image {
         max-width: 100%;
         max-height: 90vh;
@@ -1412,6 +1423,8 @@
 
             const modal = document.getElementById('imageLightbox');
             const img = document.getElementById('lightboxImage');
+            const prevBtn = modal.querySelector('.lightbox-nav.prev');
+            const nextBtn = modal.querySelector('.lightbox-nav.next');
 
             if (!modal || !img) {
                 console.error('openLightbox: Required DOM elements not found');
@@ -1421,6 +1434,15 @@
             img.src = currentGalleryImages[currentImageIndex];
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // Gray out navigation buttons if only one image
+            if (currentGalleryImages.length === 1) {
+                prevBtn?.classList.add('disabled');
+                nextBtn?.classList.add('disabled');
+            } else {
+                prevBtn?.classList.remove('disabled');
+                nextBtn?.classList.remove('disabled');
+            }
         }
 
         function closeLightbox() {
@@ -1430,9 +1452,14 @@
         }
 
         function navigateLightbox(direction) {
+            // Don't navigate if only one image
+            if (currentGalleryImages.length <= 1) {
+                return;
+            }
+            
             currentImageIndex += direction;
 
-            // Loop around
+            // Circular navigation - loop around
             if (currentImageIndex < 0) {
                 currentImageIndex = currentGalleryImages.length - 1;
             } else if (currentImageIndex >= currentGalleryImages.length) {
@@ -1505,7 +1532,7 @@
                 }
             });
             
-            // Calculate next index
+            // Calculate next index with circular navigation
             let nextIndex = currentIndex + direction;
             if (nextIndex < 0) nextIndex = thumbnails.length - 1;
             if (nextIndex >= thumbnails.length) nextIndex = 0;
@@ -1516,6 +1543,55 @@
                 block: 'nearest',
                 inline: 'center'
             });
+            
+            // Auto-select the centered thumbnail after scrolling
+            setTimeout(() => {
+                selectCenteredThumbnail(projectId);
+            }, 300);
+        }
+        
+        // Auto-select centered thumbnail and update main view
+        function selectCenteredThumbnail(projectId) {
+            const gallery = document.querySelector(`#${CSS.escape(projectId)} .thumbnail-gallery`);
+            if (!gallery) return;
+            
+            const thumbnails = gallery.querySelectorAll('.thumbnail-btn');
+            if (thumbnails.length === 0) return;
+            
+            const galleryRect = gallery.getBoundingClientRect();
+            const galleryCenter = galleryRect.left + galleryRect.width / 2;
+            
+            let centeredIndex = 0;
+            let minDistance = Infinity;
+            
+            thumbnails.forEach((thumb, index) => {
+                const thumbRect = thumb.getBoundingClientRect();
+                const thumbCenter = thumbRect.left + thumbRect.width / 2;
+                const distance = Math.abs(thumbCenter - galleryCenter);
+                
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    centeredIndex = index;
+                }
+            });
+            
+            // Trigger click on the centered thumbnail to update main view
+            const centeredThumb = thumbnails[centeredIndex];
+            if (centeredThumb) {
+                const action = centeredThumb.dataset.action;
+                const thumbIndex = parseInt(centeredThumb.dataset.index);
+                
+                if (action === 'switchImage') {
+                    switchMainImage(projectId, centeredThumb.dataset.image, thumbIndex);
+                } else if (action === 'switchVideo') {
+                    const videoSrc = centeredThumb.dataset.video;
+                    if (videoSrc) {
+                        switchToVideo(projectId, thumbIndex, videoSrc);
+                    } else {
+                        switchToVideo(projectId, thumbIndex);
+                    }
+                }
+            }
         }
 
         // Pull to refresh functionality
