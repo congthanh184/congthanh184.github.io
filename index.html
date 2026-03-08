@@ -157,6 +157,17 @@
         padding-left: 1rem;
         padding-right: 1rem;
     }
+    /* Increase showcase text size on desktop to match bio */
+    @media (min-width: 1024px) {
+        section[id^="project-"] .editorial-block > p:first-of-type {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+        section[id^="project-"] .editorial-block .details-container p {
+            font-size: 1rem;
+            line-height: 1.625rem;
+        }
+    }
     /* Fix project sections on mobile */
     @media (max-width: 1023px) {
         header, main {
@@ -267,6 +278,29 @@
         section[id^="project-"] .editorial-block .flex {
             justify-content: center;
         }
+        /* Hide bio border on mobile */
+        #bio .editorial-block {
+            border-left: none !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+        /* Make bio text more breathable on mobile */
+        #bio .editorial-block p {
+            font-size: 1rem !important;
+            line-height: 1.75 !important;
+        }
+        /* Reduce bio section padding on mobile */
+        #bio {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            max-width: 100% !important;
+        }
+        /* Center product showcase title on mobile */
+        .product-showcase-header {
+            text-align: center !important;
+        }
     }
 </style>
     <script id="tailwind-config">
@@ -344,13 +378,29 @@
                         </div>
                     </div>
 
-                    <!-- Section Header -->
-                    <div class="mb-16 border-b border-slate-100 pb-4">
-                        <h2
-                            class="text-charcoal text-3xl font-bold flex items-center gap-4 uppercase tracking-tighter font-display">
-                            <span class="material-symbols-outlined text-primary text-4xl">play_circle</span>
-                            Project Showcase &amp; Video Demos
-                        </h2>
+                    <!-- Bio Section -->
+                    <section class="mb-32 max-w-4xl mx-auto px-6" id="bio">
+                        <div class="flex flex-col items-center mb-10">
+                            <h2 class="text-2xl font-extrabold text-charcoal uppercase tracking-widest font-display mb-2">Bio</h2>
+                            <div class="h-1 w-12 bg-primary rounded-full"></div>
+                        </div>
+                        <div class="editorial-block border-l-4 border-primary/20 pl-8 bg-slate-50/50 p-8 rounded-r-2xl">
+                            <p class="text-xl text-slate-700 font-body leading-relaxed text-justify">
+                                I'm a Product Manager with an engineering soul. For a time, I thought moving into product leadership meant trading the IDE for PRDs—and I missed the "click" of building.
+                            </p>
+                            <p class="text-xl text-slate-700 font-body leading-relaxed text-justify mt-4">
+                                AI changed that. Today, I leverage an AI-augmented workflow to close the gap between strategy and execution, moving from user stories straight to functional code. I've found my sweet spot in the "0 to 1" phase, specifically within FinTech, QR Payments, and Web3.
+                            </p>
+                            <p class="text-xl text-slate-700 font-body leading-relaxed text-justify mt-4">
+                                But moving fast is only half the battle. I use AI to build faster, and I use my engineering roots to build better. By prioritizing rigorous testing, security, and CI/CD, I ensure that every project—from PRD to production—is as maintainable and stable as it is innovative.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Product Showcase Section Header -->
+                    <div class="product-showcase-header flex flex-col items-center mb-20">
+                        <h2 class="text-2xl font-extrabold text-charcoal uppercase tracking-widest font-display mb-2">Product Showcase</h2>
+                        <div class="h-1 w-12 bg-primary rounded-full"></div>
                     </div>
 
                     <!-- Project Showcases -->
@@ -506,7 +556,7 @@
                                 </div>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
+                            <div class="w-full lg:w-[35%] px-4 lg:px-8 border-r-4 border-primary/20 text-right">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Client Portal</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A full-featured portal for merchants to monitor transaction status, view analytics and manage their accounts.</p>
@@ -596,10 +646,11 @@
                         </section>
 
                         <!-- Project 4: Remitano -->
-                        <section id="project-remitano" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
-                            <div class="w-full lg:w-3/5 space-y-4">
+                        <!-- Variation B: Softer shadows, larger images, tighter spacing -->
+                        <section id="project-remitano" class="flex flex-col lg:flex-row-reverse gap-10 items-center">
+                            <div class="w-full lg:w-[65%] space-y-4">
                                 <div
-                                    class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                                    class="relative aspect-video bg-charcoal/5 rounded-3xl shadow-lg overflow-hidden group">
                                     <div class="main-project-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
                                         style='background-image: url("images/tracking/profit-tracking.jpeg");'
                                         data-action="openLightbox" data-project="project-remitano">
@@ -633,7 +684,7 @@
                                         <span class="material-symbols-outlined">open_in_new</span></a>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
+                            <div class="w-full lg:w-[35%] px-4 lg:px-8 border-r-4 border-primary/20 text-right">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Remitano</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A centralised exchange for buying and selling crypto with local fiat currencies, serving 2M+ users across Vietnam, Nigeria, India and South Africa.</p>
@@ -653,10 +704,11 @@
                         </section>
 
                         <!-- Project 5: Cellzier -->
-                        <section id="project-cellzier" class="flex flex-col lg:flex-row gap-12 items-center">
-                            <div class="w-full lg:w-3/5 space-y-4">
+                        <!-- Variation B: Softer shadows, larger images, tighter spacing -->
+                        <section id="project-cellzier" class="flex flex-col lg:flex-row gap-10 items-center">
+                            <div class="w-full lg:w-[65%] space-y-4">
                                 <div
-                                    class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                                    class="relative aspect-video bg-charcoal/5 rounded-3xl shadow-lg overflow-hidden group">
                                     <div class="main-project-image absolute inset-0 bg-no-repeat bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
                                         style='background-image: url("images/cellzier/cellzier-bot.jpeg"); background-size: contain; background-color: #1e293b;'
                                         data-action="openLightbox" data-project="project-cellzier">
@@ -721,7 +773,7 @@
                                         <span class="material-symbols-outlined">open_in_new</span></a>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                            <div class="w-full lg:w-[35%] px-4 lg:px-8 border-l-4 border-primary/20">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Cellzier</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A Discord bot and marketplace for a phone builder community, with an LLM-powered assistant that helps users troubleshoot device issues.</p>
@@ -741,10 +793,11 @@
                         </section>
 
                         <!-- Project 6: DCA Bot -->
-                        <section id="project-dca-bot" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
-                            <div class="w-full lg:w-3/5 space-y-4">
+                        <!-- Variation B: Softer shadows, larger images, tighter spacing -->
+                        <section id="project-dca-bot" class="flex flex-col lg:flex-row-reverse gap-10 items-center">
+                            <div class="w-full lg:w-[65%] space-y-4">
                                 <div
-                                    class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                                    class="relative aspect-video bg-charcoal/5 rounded-3xl shadow-lg overflow-hidden group">
                                     <div class="main-project-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
                                         style='background-image: url("images/dca-bot/dca-bot.jpeg");'
                                         data-action="openLightbox" data-project="project-dca-bot">
@@ -772,7 +825,7 @@
                                 </div>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
+                            <div class="w-full lg:w-[35%] px-4 lg:px-8 border-r-4 border-primary/20 text-right">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">DCA Bot</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A personal project: a bot that dollar-cost averages into SOL, BTC and other crypto assets by creating AMM positions instead of simple limit orders, optimising for yield.</p>
@@ -787,9 +840,10 @@
                         </section>
 
                         <!-- Project 7: Protean -->
-                        <section id="project-protean" class="flex flex-col lg:flex-row gap-12 items-center">
-                            <div class="w-full lg:w-3/5 space-y-4">
-                                <div class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                        <!-- Variation C: Card-style with background accent, contained layout, elevated shadow -->
+                        <section id="project-protean" class="flex flex-col lg:flex-row gap-14 items-center bg-slate-50/50 p-8 rounded-2xl">
+                            <div class="w-full lg:w-[55%] space-y-4">
+                                <div class="relative aspect-video bg-white rounded-xl shadow-2xl overflow-hidden group">
                                     <div class="main-project-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
                                         style='background-image: url("images/protean/protean-lab.jpeg");'
                                         data-action="openLightbox" data-project="project-protean">
@@ -833,7 +887,7 @@
                                         <span class="material-symbols-outlined">code</span></a>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                            <div class="w-full lg:w-[45%] px-4 lg:px-6 border-l-4 border-primary/30">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Protean</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">An embedded system on pcDuino that acquires data from GPS and gyroscope sensors (MPU) and syncs to the cloud — used to report on a wave energy generator in Perth, WA.</p>
@@ -856,9 +910,10 @@
                         </section>
 
                         <!-- Project 9: Mat Than -->
-                        <section id="project-mat-than" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
-                            <div class="w-full lg:w-3/5 space-y-4">
-                                <div class="relative aspect-video bg-charcoal/5 rounded-2xl shadow-xl overflow-hidden group">
+                        <!-- Variation C: Card-style with background accent, contained layout, elevated shadow -->
+                        <section id="project-mat-than" class="flex flex-col lg:flex-row-reverse gap-14 items-center bg-slate-50/50 p-8 rounded-2xl">
+                            <div class="w-full lg:w-[55%] space-y-4">
+                                <div class="relative aspect-video bg-white rounded-xl shadow-2xl overflow-hidden group">
                                     <div class="main-project-image absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
                                         style='background-image: url("images/mat-than/mat-than.jpeg");'
                                         data-action="openLightbox" data-project="project-mat-than">
@@ -894,7 +949,7 @@
                                         <span class="material-symbols-outlined">code</span></a>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
+                            <div class="w-full lg:w-[45%] px-4 lg:px-6 border-r-4 border-primary/30 text-right">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Mắt Thần</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">Smart glasses for the visually impaired, equipped with distance sensors and vibration motors to signal the wearer to avoid obstacles.</p>
@@ -917,9 +972,10 @@
                         </section>
 
                         <!-- Project 10: HDL USB 9090 -->
-                        <section id="project-hdl-9090" class="flex flex-col lg:flex-row gap-12 items-center">
-                            <div class="w-full lg:w-3/5 space-y-4">
-                                <div class="relative aspect-video rounded-2xl shadow-xl overflow-hidden group" style="background-color: #f1f5f9;">
+                        <!-- Variation C: Card-style with background accent, contained layout, elevated shadow -->
+                        <section id="project-hdl-9090" class="flex flex-col lg:flex-row gap-14 items-center bg-slate-50/50 p-8 rounded-2xl">
+                            <div class="w-full lg:w-[55%] space-y-4">
+                                <div class="relative aspect-video rounded-xl shadow-2xl overflow-hidden group" style="background-color: #ffffff;">
                                     <div class="main-project-image absolute inset-0 bg-no-repeat bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
                                         style='background-image: url("images/hdl-9090/hdl-usb.jpeg"); background-size: contain; background-color: #f1f5f9;'
                                         data-action="openLightbox" data-project="project-hdl-9090">
@@ -952,7 +1008,7 @@
                                         <span class="material-symbols-outlined">description</span></a>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                            <div class="w-full lg:w-[45%] px-4 lg:px-6 border-l-4 border-primary/30">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">HDL USB 9090</h3>
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A low-cost DAQ card built with a PIC16 microcontroller as a student-friendly alternative to National Instruments (NI) VISA cards, supporting USB connection.</p>
@@ -972,6 +1028,7 @@
                         </section>
 
                         <!-- Project 11: Robotics -->
+                        <!-- Variation A: Returns to standard layout -->
                         <section id="project-robotics" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
                             <div class="w-full lg:w-3/5 space-y-4">
                                 <div class="relative aspect-video rounded-2xl shadow-xl overflow-hidden group" style="background-color: #f1f5f9;">
