@@ -467,7 +467,7 @@
                                 I'm a Product Manager with an engineering soul. For a time, I thought moving into product leadership meant trading the IDE for PRDs—and I missed the "click" of building.
                             </p>
                             <p class="text-xl text-slate-700 font-body leading-relaxed text-justify mt-4">
-                                AI changed that. Today, I leverage an AI-augmented workflow to close the gap between strategy and execution, moving from user stories straight to functional code. I've found my sweet spot in the "0 to 1" phase, specifically within FinTech, QR Payments, and Web3.
+                                AI changed that. Today, I use an AI-augmented workflow to close the gap between strategy and execution, moving from user stories straight to functional code. I've found my sweet spot in the "0 to 1" phase, specifically within FinTech, QR Payments, and Web3.
                             </p>
                             <p class="text-xl text-slate-700 font-body leading-relaxed text-justify mt-4">
                                 But moving fast is only half the battle. I use AI to build faster, and I use my engineering roots to build better. By prioritizing rigorous testing, security, and CI/CD, I ensure that every project—from PRD to production—is as maintainable and stable as it is innovative.
@@ -570,7 +570,17 @@
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A B2B2C crypto payment gateway that enables fintech businesses to offer QR payments to their end customers, with real-time settlement and developer-friendly integration.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">I handled the system architecture and kept the frontend and backend in sync. I kicked this one off using v0.dev and Supabase, but as things scaled, I quickly moved over to a full Rails backend. Later on, I used Lovable and Claude Code to give the UI/UX a proper revamp. The real challenge was the pivot: we went from off-ramp settlements that took 15 minutes to QR payments hitting in under 5 seconds to stay competitive.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">I architected the full system — backend, frontend, and merchant-facing API. This project felt like a graduation of sorts: after years building crypto-fiat systems at Remitano and RENEC, I knew what to include and, more importantly, what to leave out to keep things simple and avoid obscure bugs from over-engineering. The hardest stretch was the pivot from 15-minute settlements to sub-5-second QR payments — it meant re-optimising every step in the flow to cut overhead, and the key unlock was finding a vendor that could support the speed we needed.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-disc list-inside">
+                                                    <li>Price engine with TTL-based quote locking; rejects stale quotes to prevent slippage</li>
+                                                    <li>Idempotency tokens on every payment request — duplicate QR scans / retries return the original result, prevent double-settle</li>
+                                                    <li>Designed a structured resolution process for payment failures — guided steps to reduce human error during manual retries</li>
+                                                    <li>Atomic state machine (pending → locked → settled / failed) with optimistic locking to handle concurrent webhook and poll callbacks</li>
+                                                    <li>Background reconciliation job cross-checks on-chain confirmations against internal ledger, flags mismatches</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -650,7 +660,14 @@
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A full-featured portal for merchants to monitor transaction status, view analytics and manage their accounts.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">For this one, I teamed up directly with the partner's tech lead to figure out the requirements and scope. We were running Java on the backend and Figma for the design side. My main focus was turning those Figma mocks into production-ready code. It was honestly cool to see the app hit 95–98% fidelity—it’s wild how close we got to the original designs thanks to Claude Code and the Figma MCP.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">For this one, I teamed up directly with the partner's tech lead to figure out the requirements and scope. We were running Java on the backend and Figma for the design side. My main focus was turning those Figma mocks into production-ready code. It was honestly cool to see the app hit 95%–98% fidelity — it's wild how close we got to the original designs thanks to Claude Code and the Figma MCP.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2 text-right">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-none text-right">
+                                                    <li class="before:content-['•'] before:mr-2 before:text-slate-400">API key management with scoped permissions (read-only vs. read-write) and automatic key rotation</li>
+                                                    <li class="before:content-['•'] before:mr-2 before:text-slate-400">Webhook delivery with exponential backoff retries and HMAC-SHA256 signature verification</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -729,7 +746,15 @@
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A decentralised exchange built on the RENEC blockchain, featuring cross-chain bridging, a fiat-crypto P2P market and gasless transactions for easy onboarding.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">A standalone exchange that I was responsible for, from design to launch. The goal was to bring DeFi to non-tech users. We tackled this with a decentralised P2P market, gasless transactions, and a non-custodial wallet with email login. Lessons? The cost of decentralisation is high — especially when users don't prioritise it yet. Also, the dark theme hindered growth — users over 30, especially those with reduced contrast sensitivity or eye strain, struggled to read the interface clearly.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">A standalone decentralised exchange that I was responsible for, from design to launch. The goal was to bring DeFi to non-tech users. We tackled this with a decentralised P2P market, gasless transactions, and a non-custodial wallet with email login. Lessons? The cost of decentralisation is high — especially when users don't prioritise it yet. Also, the dark-only theme hindered growth — users over 30, especially those with reduced contrast sensitivity or eye strain, struggled to read the interface clearly.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-disc list-inside">
+                                                    <li>Smart router system that finds the best path across multiple pools with minimal price impact</li>
+                                                    <li>Gasless relayer sponsors transaction fees, recoups via spread — zero native token needed for new users</li>
+                                                    <li>On-chain P2P escrow via smart contracts with timeout-based dispute resolution</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -794,7 +819,15 @@
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A centralised exchange for buying and selling crypto with local fiat currencies, serving 2M+ users across Vietnam, Nigeria, India and South Africa.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">I worked at Remitano for 8 years across various roles. The profit tracking feature was my first project as a product owner. It came from interviewing users, reading through support chats, and watching how people used the app. The main challenge was designing a UI compact and clear enough to fit within the existing swap page without disrupting the trading flow.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">Spending eight years at Remitano was a defining chapter of my career. Moving through various roles, I had the opportunity to learn what it truly takes to build a product that lasts. Above all, it's where I learned that ownership means more than just management—it is the responsibility to execute, to see a project through to completion, and to keep everyone involved accountable.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">In a crypto exchange, this responsibility starts with survival. I learned to design features with risk management built in from the start, rather than bolted on as an afterthought. This philosophy extends to the UI: I believe a feature should explain itself and handle errors so gracefully that FAQs or instructions aren't needed. When manual intervention is required, the admin tools must be error-tolerant enough to prevent accidental mistakes.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">I hold a special point of pride for the Profit Tracking feature, as it was my first project as a Product Owner. It was born from hours of interviewing users and reading support logs. The challenge was a technical and design puzzle: providing traders with the transparency they needed without disrupting the established flow of the swap page.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2 text-right">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-none text-right">
+                                                    <li class="before:content-['•'] before:mr-2 before:text-slate-400">Idempotent transactions from deposits, withdrawals to trades to prevent duplicate processing</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -890,7 +923,15 @@
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A Discord bot and marketplace for a phone builder community, with an LLM-powered assistant that helps users troubleshoot device issues.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">Full-stack builder (freelance). Built a Discord bot and marketplace for a phone builder community. The bot uses an LLM to help users diagnose and fix phone issues. Key techniques include query rewriting with added context (device models, common issues, known solutions) to improve answer accuracy, and Pydantic-based JSON schema validation to ensure data integrity.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">Full-stack builder (freelance). Built a Discord bot and marketplace for a phone builder community. The bot uses an LLM to help users diagnose and fix phone issues. Key techniques include query rewriting with added context (device models, common issues, known solutions) to improve retrieval accuracy, and Pydantic-based JSON schema validation to ensure data integrity.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-disc list-inside">
+                                                    <li>Query rewriter enriches raw questions with device-specific context before vector search, cutting irrelevant retrievals</li>
+                                                    <li>Knowledge base chunked by device model and issue category from repair manuals + community fix logs</li>
+                                                    <li>Pydantic schema validation on every LLM output — catches malformed diagnoses before surfacing to users</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -948,10 +989,18 @@
                                         <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Unichain</span>
                                         <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">BSC</span>
                                     </div>
-                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A personal project: a bot that dollar-cost averages into SOL, BTC and other crypto assets by creating AMM positions instead of simple limit orders, optimising for yield.</p>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A personal project: a bot that dollar-cost averages into SOL, BTC and other crypto assets by creating AMM positions instead of instant swap or limit orders, optimising for fees earning.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">Solo builder — fully coded with Claude. Creates concentrated liquidity positions on AMM pools (Uniswap, Orca, Meteora) across Solana, BSC, Unichain and Arbitrum. Key learnings: packing instructions into a single transaction to save gas, batching RPC calls to reduce latency and avoid rate limits, and writing isolated test scripts for each contract interaction to debug reliably.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">Solo builder — fully coded with Claude. Creates concentrated liquidity positions on AMM pools (Uniswap, Orca, Meteora) across Solana, BSC, Unichain and Arbitrum. Key learnings: packing instructions into a single transaction to save gas, batching RPC calls to reduce latency and avoid rate limits, and writing isolated test scripts for each contract interaction to debug reliably.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2 text-right">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-none text-right">
+                                                    <li class="before:content-['•'] before:mr-2 before:text-slate-400">Volatility-adjusted range sizing — wider in high-vol, tighter in calm markets for optimal fee capture</li>
+                                                    <li class="before:content-['•'] before:mr-2 before:text-slate-400">Batched RPC calls across multiple providers with automatic failover</li>
+                                                    <li class="before:content-['•'] before:mr-2 before:text-slate-400">CLAMM mathematics for impermanent loss calculation and position range optimization, from bin to price calculations</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -1019,7 +1068,16 @@
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A tarot reading app designed for quick, on-the-go readings — ask your question anytime during the day.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">What better way to practise LLM techniques than building a Tarot Reader? This was my early experiment with LLMs — fully coded by Claude. It taught me both prompt engineering and (surprisingly) SSR fundamentals: managing API keys server-side and lazy-loading 70+ HD card illustrations to avoid performance bottlenecks. My approach? Build a minimal working example outside the main project first, then integrate. <br>I also evolved from single-prompt readings to a two-phase Think → Refine flow: one prompt interprets the cards and question; another combines the reading, translates it to the user's language, and summarises. The process required a tight feedback loop — build prompt, evaluate result, tune, repeat. Good fun.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">What better way to practise LLM techniques than building a Tarot Reader? This was my early experiment with LLMs — fully coded by Claude. It taught me both prompt engineering and (surprisingly) SSR fundamentals: managing API keys server-side and lazy-loading 70+ HD card illustrations to avoid performance bottlenecks. My approach? Build a minimal working example outside the main project first, then integrate. <br>I also evolved from single-prompt readings to a two-phase Think → Refine flow: one prompt interprets the cards and question; another combines the reading, translates it to the user's language, and summarises. The process required a tight feedback loop — build prompt, evaluate result, tune, repeat. Good fun.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-disc list-inside">
+                                                    <li>Two-phase LLM pipeline: Analyst outputs structured JSON analysis, Writer crafts natural-language reading — debuggable independently</li>
+                                                    <li>Flat JSON schemas with strict field definitions to prevent hallucinated structure</li>
+                                                    <li>Multilingual handled at Writer phase; Analyst always reasons in English for consistency</li>
+                                                    <li>Server-side API key management, lazy-loaded card images via intersection observers for sub-2s load</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -1092,7 +1150,15 @@
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">An embedded system on pcDuino that acquires data from GPS and gyroscope sensors (MPU) and syncs to the cloud — used to report on a wave energy generator in Perth, WA.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">My last microcontroller project before moving into cryptocurrency. Spent considerable effort debugging a multithreading issue and finding a solution to keep the system running stably over testing periods that could last for weeks.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">My last microcontroller project before moving into cryptocurrency. Spent considerable effort debugging a multithreading issue to keep the system running stably over testing periods that could last for weeks.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2 text-right">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-none text-right">
+                                                    <li class="before:content-['•'] before:mr-2 before:text-slate-400">Implemented and managed a multithreaded system for GPS and MPU sensor data acquisition</li>
+                                                    <li class="before:content-['•'] before:mr-2 before:text-slate-400">Adaptive filter for MPU sensor data to reduce noise and improve accuracy</li>
+                                                    <li class="before:content-['•'] before:mr-2 before:text-slate-400">Watchdog timer auto-restarts acquisition loop on thread stall — critical for weeks-long unattended deployments</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -1159,7 +1225,7 @@
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">Smart glasses for the visually impaired, equipped with distance sensors and vibration motors to signal the wearer to avoid obstacles.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">A community project by Dr. Nguyen Ba Hai that I was lucky to be part of. I refactored the codebase to improve response time and accuracy, and got to learn about haptics along the way. Also debugged a "weird" issue where the glasses would freeze in cold environments — it turned out a component had a narrower operating temperature range than required.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">A community project by Dr. Nguyen Ba Hai that I was lucky to be part of. I refactored the codebase to improve response time and accuracy, and got to learn about haptics along the way. Also debugged a "weird" issue where the glasses would freeze in cold environments — it turned out a component had a narrower operating temperature range than required.</p>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -1223,7 +1289,13 @@
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A low-cost DAQ card built with a PIC16 microcontroller as a student-friendly alternative to National Instruments (NI) VISA cards, supporting USB connection.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">My first commercial project. Built a data acquisition card using a PIC16 microcontroller with USB support — a low-cost alternative to National Instruments (NI) VISA cards for students.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">My first commercial project. Built a data acquisition card using a PIC16 microcontroller with USB support — a low-cost alternative to National Instruments (NI) VISA cards for students.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2 text-right">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-none text-right">
+                                                    <li class="before:content-['•'] before:mr-2 before:text-slate-400">Companion desktop driver translating NI VISA-compatible API calls so students keep familiar LabVIEW workflows</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
@@ -1310,7 +1382,15 @@
                                     <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A series of robotics projects including simulation of robot kinematics, deep learning, and computer vision — built across online courses and a university delta bot project.</p>
                                     <div class="mb-8">
                                                                                 <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
-                                            <p class="text-sm text-slate-500 leading-relaxed">These came from various online courses I took — except the delta bot simulation, which I built for a uni project. I learned how to use ROS, Gazebo and rviz to simulate robot kinematics, mobile robot navigation, and computer vision, and how to set up and train a convolutional neural network (CNN) to recognise objects. Good times.</p>
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">These came from various online courses — except the delta bot simulation, which I built for a uni project. I learned how to use ROS, Gazebo and rviz to simulate robot kinematics, mobile robot navigation, and computer vision, and how to set up and train a convolutional neural network (CNN) to recognise objects. Good times.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-disc list-inside">
+                                                    <li>Derived inverse kinematics from scratch, validated in MATLAB, implemented in C++ for real-time control</li>
+                                                    <li>SLAM-based autonomous navigation with CNN object detection for pick-up/drop-off decisions</li>
+                                                    <li>PID tuning for smooth arm motion and navigating the sim-to-real gap in Gazebo</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
