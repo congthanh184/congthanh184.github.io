@@ -484,7 +484,109 @@
                     <!-- Project Showcases -->
                     <div class="flex flex-col gap-40">
 
-                        <!-- Project 1: XpressFlow -->
+                        <!-- Project 1: FlatMates -->
+                        <section id="project-flatmates" class="flex flex-col lg:flex-row gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div
+                                    class="relative aspect-video bg-charcoal/5 rounded-3xl shadow-xl overflow-hidden group">
+                                    <div class="main-project-image absolute inset-0 bg-no-repeat bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/flat-mates/flat-mates-pwa.jpeg"); background-size: contain; background-color: #1e293b;'
+                                        data-action="openLightbox" data-project="project-flatmates">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="main-project-video absolute inset-0 hidden bg-black/95">
+                                        <video class="w-full h-full object-contain" controls>
+                                            <source src="images/flat-mates/flat-mates-demo.MP4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <button data-action="openVideoModal" data-video="images/flat-mates/flat-mates-demo.MP4"
+                                            class="absolute top-4 right-4 w-16 h-16 bg-black/50 hover:bg-primary/90 text-white rounded-full flex items-center justify-center transition-all z-10 border-2 border-white/20 hover:border-white/60">
+                                            <span class="material-symbols-outlined text-2xl">fullscreen</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-flatmates" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-flatmates" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-flatmates" data-image="images/flat-mates/flat-mates-pwa.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-no-repeat bg-center"
+                                            style='background-image: url("images/flat-mates/flat-mates-pwa.jpeg"); background-size: contain; background-color: #1e293b;'></div>
+                                    </button>
+                                    <button data-action="switchVideo" data-project="project-flatmates" data-index="1"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden relative">
+                                        <div class="w-full h-full bg-no-repeat bg-center"
+                                             style='background-image: url("images/flat-mates/video-thumbnail.jpg"); background-size: contain; background-color: #1e293b;'></div>
+                                        <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                            <span class="material-symbols-outlined text-white text-4xl drop-shadow-lg">play_circle</span>
+                                        </div>
+                                    </button>
+                                </div>
+                                </div>
+                                <!-- Mobile icons under gallery -->
+                                <div class="lg:hidden flex gap-4 justify-center mt-4">
+                                    <button data-action="openVideoModal" data-video="images/flat-mates/flat-mates-demo.MP4"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Watch Demo">
+                                        <span class="material-symbols-outlined">play_circle</span>
+                                    </button>
+                                    <a href="https://flat-mates-production.up.railway.app/" target="_blank" rel="noopener noreferrer"
+                                        class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live Site">
+                                        <span class="material-symbols-outlined">open_in_new</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">FlatMates</h3>
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Next.js</span>
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Supabase</span>
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Recharts</span>
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">PWA</span>
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">i18n</span>
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Playwright</span>
+                                    </div>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A mobile-first weight-loss race tracker that turns a housemate challenge into a friendly competition with live leaderboards ranked by percentage of weight lost.</p>
+                                    <div class="mb-8">
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">When my Melbourne housemates decided to go on a collective weight-loss journey, I did what any developer would do: built a mobile app to turn it into a ruthless, friendly race. Used Cursor to rapidly spin up the Next.js frontend, Supabase for lightning-fast database storage, authentication, and real-time data flow. Shipped as a PWA so everyone could install it straight to their home screens with offline support.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-disc list-inside">
+                                                    <li>Full i18n with English and Vietnamese — server-side locale detection and seamless client-side switching</li>
+                                                    <li>Supabase real-time subscriptions push leaderboard updates instantly as housemates log their weight</li>
+                                                    <li>E2E tested with Playwright against a local Supabase instance with seeded test data</li>
+                                                    <li>PWA with offline support and "Add to Home Screen" prompt for native app feel without App Store</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                    <div class="hidden lg:flex gap-4">
+                                        <button data-action="openVideoModal" data-video="images/flat-mates/flat-mates-demo.MP4"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Watch Demo">
+                                            <span class="material-symbols-outlined">play_circle</span>
+                                        </button>
+                                        <a href="https://flat-mates-production.up.railway.app/" target="_blank" rel="noopener noreferrer"
+                                            class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Live Site">
+                                            <span class="material-symbols-outlined">open_in_new</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 2: XpressFlow -->
                         <section id="project-xpressflow" class="flex flex-col lg:flex-row gap-12 items-center">
                             <div class="w-full lg:w-3/5 space-y-4">
                                 <div
@@ -1528,7 +1630,8 @@
         const mobileImages = new Set([
             'images/dex/dex-1.jpeg',
             'images/cellzier/cellzier-bot.jpeg',
-            'images/protean/protean-wave-energy.jpg'
+            'images/protean/protean-wave-energy.jpg',
+            'images/flat-mates/flat-mates-pwa.jpeg'
         ]);
 
         // Diagrams / mixed-ratio images — contain + light background
@@ -1543,6 +1646,11 @@
 
         // Gallery Management Functions
         let projectGalleries = {
+            'project-flatmates': {
+                images: ['images/flat-mates/flat-mates-pwa.jpeg'],
+                currentIndex: 0,
+                isVideo: false
+            },
             'project-xpressflow': {
                 images: [
                     'images/qr-payment/qr-payment-1.jpeg',
