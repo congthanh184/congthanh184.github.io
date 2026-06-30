@@ -484,8 +484,80 @@
                     <!-- Project Showcases -->
                     <div class="flex flex-col gap-40">
 
-                        <!-- Project 1: FlatMates -->
-                        <section id="project-flatmates" class="flex flex-col lg:flex-row gap-12 items-center">
+                        <!-- Project 1: Hudo Express -->
+                        <section id="project-hudo-express" class="flex flex-col lg:flex-row gap-12 items-center">
+                            <div class="w-full lg:w-3/5 space-y-4">
+                                <div
+                                    class="relative aspect-video bg-charcoal/5 rounded-3xl shadow-xl overflow-hidden group">
+                                    <div class="main-project-image absolute inset-0 bg-no-repeat bg-center transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                                        style='background-image: url("images/hudo-express/hudo-landing.jpeg"); background-size: contain; background-color: #f1f5f9;'
+                                        data-action="openLightbox" data-project="project-hudo-express">
+                                        <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
+                                            <div class="text-white text-center">
+                                                <span class="material-symbols-outlined text-6xl mb-2">zoom_in</span>
+                                                <p class="text-sm font-semibold">Click to enlarge</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="relative">
+                                    <button class="gallery-nav-btn prev" data-action="scrollGallery" data-project="project-hudo-express" data-direction="-1">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button class="gallery-nav-btn next" data-action="scrollGallery" data-project="project-hudo-express" data-direction="1">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                <div class="thumbnail-gallery flex flex-row gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                    <button data-action="switchImage" data-project="project-hudo-express" data-image="images/hudo-express/hudo-landing.jpeg" data-index="0"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border-2 border-primary rounded-xl overflow-hidden hover:opacity-100 transition-all">
+                                        <div class="w-full h-full bg-no-repeat bg-center"
+                                            style='background-image: url("images/hudo-express/hudo-landing.jpeg"); background-size: contain; background-color: #f1f5f9;'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-hudo-express" data-image="images/hudo-express/hudo-puck-cms.jpeg" data-index="1"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-no-repeat bg-center"
+                                            style='background-image: url("images/hudo-express/hudo-puck-cms.jpeg"); background-size: contain; background-color: #f1f5f9;'></div>
+                                    </button>
+                                    <button data-action="switchImage" data-project="project-hudo-express" data-image="images/hudo-express/hudo-form-admin.jpeg" data-index="2"
+                                        class="thumbnail-btn shrink-0 w-32 aspect-video border border-slate-200 opacity-80 hover:opacity-100 transition-all rounded-xl overflow-hidden">
+                                        <div class="w-full h-full bg-no-repeat bg-center"
+                                            style='background-image: url("images/hudo-express/hudo-form-admin.jpeg"); background-size: contain; background-color: #f1f5f9;'></div>
+                                    </button>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                                <div class="editorial-block">
+                                    <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">Hudo Express</h3>
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Next.js</span>
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">PostgreSQL</span>
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Puck CMS</span>
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">PWA</span>
+                                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">i18n</span>
+                                    </div>
+                                    <p class="text-base text-slate-600 leading-relaxed mb-5 font-body">A cost-cutting replacement for JotForm that handles two-way shipping registrations between Australia and Vietnam, keeping the owner's beloved Google Sheets workflow intact.</p>
+                                    <div class="mb-8">
+                                        <div class="details-container overflow-hidden transition-all duration-300" style="max-height: 3.75rem;">
+                                            <p class="text-sm text-slate-500 leading-relaxed mb-4">Hudo Express handles two-way shipping between Australia and Vietnam. When JotForm's premium tiers became too expensive, the goal was strictly to cut costs without disrupting what already works. The owner prefers to keep using Google Spreadsheets for day-to-day operations, so this solution simply replaces the expensive form builder while keeping the exact workflow they value.</p>
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-charcoal mb-2">Technical Depth</h4>
+                                                <ul class="text-xs text-slate-500 leading-relaxed space-y-1 list-disc list-inside">
+                                                    <li>Multi-step registration form with conditional logic — only asks questions relevant to that specific shipment type</li>
+                                                    <li>Form submissions flow instantly into Google Sheets via webhook, preserving the owner's spreadsheet-driven workflow</li>
+                                                    <li>Puck CMS integration lets non-technical staff visually edit form questions and website text without developer help</li>
+                                                    <li>PWA with "Add to Home Screen" so frequent customers bypass the app store entirely</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Project 2: FlatMates -->
+                        <section id="project-flatmates" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
                             <div class="w-full lg:w-3/5 space-y-4">
                                 <div
                                     class="relative aspect-video bg-charcoal/5 rounded-3xl shadow-xl overflow-hidden group">
@@ -545,10 +617,10 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-l-4 border-primary/20">
+                            <div class="w-full lg:w-2/5 px-4 lg:px-8 border-r-4 border-primary/20 text-right">
                                 <div class="editorial-block">
                                     <h3 class="text-4xl font-bold text-charcoal mb-4 font-display">FlatMates</h3>
-                                    <div class="flex flex-wrap gap-2 mb-4">
+                                    <div class="flex flex-wrap gap-2 mb-4 justify-end">
                                         <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Next.js</span>
                                         <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Supabase</span>
                                         <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Recharts</span>
@@ -572,7 +644,7 @@
                                         </div>
                                         <button data-action="toggleDetails" class="text-xs text-primary font-semibold mt-2 hover:underline">Read more ↓</button>
                                     </div>
-                                    <div class="hidden lg:flex gap-4">
+                                    <div class="hidden lg:flex gap-4 justify-end">
                                         <button data-action="openVideoModal" data-video="images/flat-mates/flat-mates-demo.MP4"
                                             class="w-14 h-14 border border-slate-200 text-charcoal hover:bg-slate-50 rounded-full transition-all flex items-center justify-center" title="Watch Demo">
                                             <span class="material-symbols-outlined">play_circle</span>
@@ -586,7 +658,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 2: XpressFlow -->
+                        <!-- Project 3: XpressFlow -->
                         <section id="project-xpressflow" class="flex flex-col lg:flex-row gap-12 items-center">
                             <div class="w-full lg:w-3/5 space-y-4">
                                 <div
@@ -700,7 +772,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 2: Client Portal -->
+                        <!-- Project 4: Client Portal -->
                         <section id="project-client-portal" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
                             <div class="w-full lg:w-3/5 space-y-4">
                                 <div
@@ -777,7 +849,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 3: NemoSwap DEX -->
+                        <!-- Project 5: NemoSwap DEX -->
                         <section id="project-nemoswap" class="flex flex-col lg:flex-row gap-12 items-center">
                             <div class="w-full lg:w-3/5 space-y-4">
                                 <div
@@ -869,7 +941,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 4: Remitano -->
+                        <!-- Project 6: Remitano -->
                         <!-- Variation B: Softer shadows, larger images, tighter spacing -->
                         <section id="project-remitano" class="flex flex-col lg:flex-row-reverse gap-10 items-center">
                             <div class="w-full lg:w-[65%] space-y-4">
@@ -942,7 +1014,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 5: Cellzier -->
+                        <!-- Project 7: Cellzier -->
                         <!-- Variation B: Softer shadows, larger images, tighter spacing -->
                         <section id="project-cellzier" class="flex flex-col lg:flex-row gap-10 items-center">
                             <div class="w-full lg:w-[65%] space-y-4">
@@ -1046,7 +1118,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 6: DCA Bot -->
+                        <!-- Project 8: DCA Bot -->
                         <!-- Variation B: Softer shadows, larger images, tighter spacing -->
                         <section id="project-dca-bot" class="flex flex-col lg:flex-row-reverse gap-10 items-center">
                             <div class="w-full lg:w-[65%] space-y-4">
@@ -1110,7 +1182,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 7: Mystic Tarot -->
+                        <!-- Project 9: Mystic Tarot -->
                         <!-- Variation C: Card-style with background accent, contained layout, elevated shadow -->
                         <section id="project-mystic-tarot" class="flex flex-col lg:flex-row gap-14 items-center bg-slate-50/50 p-8 rounded-2xl">
                             <div class="w-full lg:w-[55%] space-y-4">
@@ -1192,7 +1264,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 8: Protean -->
+                        <!-- Project 10: Protean -->
                         <!-- Variation C: Card-style with background accent, contained layout, elevated shadow -->
                         <section id="project-protean" class="flex flex-col lg:flex-row-reverse gap-14 items-center bg-slate-50/50 p-8 rounded-2xl">
                             <div class="w-full lg:w-[55%] space-y-4">
@@ -1276,7 +1348,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 9: Mat Than -->
+                        <!-- Project 11: Mat Than -->
                         <!-- Variation C: Card-style with background accent, contained layout, elevated shadow -->
                         <section id="project-mat-than" class="flex flex-col lg:flex-row gap-14 items-center bg-slate-50/50 p-8 rounded-2xl">
                             <div class="w-full lg:w-[55%] space-y-4">
@@ -1343,7 +1415,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 10: HDL USB 9090 -->
+                        <!-- Project 12: HDL USB 9090 -->
                         <!-- Variation D: Minimal/clean style with lighter accents -->
                         <section id="project-hdl-9090" class="flex flex-col lg:flex-row-reverse gap-12 items-center">
                             <div class="w-full lg:w-3/5 space-y-4">
@@ -1410,7 +1482,7 @@
                             </div>
                         </section>
 
-                        <!-- Project 11: Robotics -->
+                        <!-- Project 13: Robotics -->
                         <!-- Variation D: Minimal/clean style with lighter accents -->
                         <section id="project-robotics" class="flex flex-col lg:flex-row gap-12 items-center">
                             <div class="w-full lg:w-3/5 space-y-4">
@@ -1641,11 +1713,23 @@
             'images/robotics/robotics-arm.png',
             'images/robotics/robotics-kinematics.jpeg',
             'images/robotics/robotics-pipeline.png',
-            'images/hdl-9090/hdl-usb.jpeg'
+            'images/hdl-9090/hdl-usb.jpeg',
+            'images/hudo-express/hudo-landing.jpeg',
+            'images/hudo-express/hudo-puck-cms.jpeg',
+            'images/hudo-express/hudo-form-admin.jpeg'
         ]);
 
         // Gallery Management Functions
         let projectGalleries = {
+            'project-hudo-express': {
+                images: [
+                    'images/hudo-express/hudo-landing.jpeg',
+                    'images/hudo-express/hudo-puck-cms.jpeg',
+                    'images/hudo-express/hudo-form-admin.jpeg'
+                ],
+                currentIndex: 0,
+                isVideo: false
+            },
             'project-flatmates': {
                 images: ['images/flat-mates/flat-mates-pwa.jpeg'],
                 currentIndex: 0,
