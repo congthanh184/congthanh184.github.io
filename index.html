@@ -903,11 +903,16 @@
         function fitClasses(fit) {
             return fit === "cover" ? "bg-cover bg-center" : "bg-no-repeat bg-center";
         }
-        function fitStyle(fit, src, lazy) {
-            let s = lazy ? `data-bg="${src}";` : `background-image: url("${src}");`;
+        function fitStyle(fit, src) {
+            let s = `background-image: url("${src}");`;
             if (fit === "contain-dark")  s += " background-size: contain; background-color: #1e293b;";
             if (fit === "contain-light") s += " background-size: contain; background-color: #f1f5f9;";
             return s;
+        }
+        function fitBgOnly(fit) {
+            if (fit === "contain-dark")  return "background-size: contain; background-color: #1e293b;";
+            if (fit === "contain-light") return "background-size: contain; background-color: #f1f5f9;";
+            return "";
         }
         // Bg values applied live by switchMainImage()
         function fitBg(fit) {
@@ -994,7 +999,8 @@
                 <div class="w-full ${imageWidth} space-y-4">
                     <div class="${imageWrapClass}"${imageWrapStyle ? ` style="${imageWrapStyle}"` : ""}>
                         <div class="main-project-image absolute inset-0 ${fitClasses(first.fit)} transition-transform duration-700 group-hover:scale-105 cursor-pointer"
-                            style='${fitStyle(first.fit, first.src, true)}'
+                            style='${fitBgOnly(first.fit)}'
+                            data-bg="${first.src}"
                             data-action="openLightbox" data-project="${p.id}">
                             <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
                                 <div class="text-white text-center">
