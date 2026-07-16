@@ -532,6 +532,36 @@
         // ============================================================
         const PROJECTS = [
             {
+                id: "project-esp32-balancing-robot",
+                title: "ESP32 Balancing Robot",
+                layout: "right",
+                variant: "D",
+                border: "r", borderOpacity: 10, textAlign: "right", justifyTags: "justify-end",
+                tags: ["ESP32", "CoreS3", "Kittenboard", "ESP-Now", "IMU", "Embedded"],
+                summary: `A hobby project exploring ESP32 capabilities — controlling a two-wheeled balancing robot via gesture input from a M5Stack CoreS3, with a Kittenboard acting as a Bluetooth-to-ESP-Now bridge.`,
+                intro: [
+                    `The original goal was a simple desktop bot that could alert me when the next bus was arriving. Then I got distracted by a discounted two-wheeled robot. For anyone interested in control systems, balancing on two wheels always feels like magic — not a skill that can be mastered by a large population. I grabbed it, thinking it would be a great tool to play with different balancing algorithms (hint: reinforcement learning).`,
+                    `Working with embedded systems like this 10 years ago would have been months of pain — hundreds of pages of datasheets, reading and testing. With coding agents, things get much easier. You still spend time figuring out pins when the product doesn't share their schematic, or simply cuts one short (talking about you, Kittenboard), but it's definitely more approachable to build these things now.`,
+                    `The setup: CoreS3 acts as the controller, leveraging its built-in IMU for gesture-based control. The rider-bot comes with Bluetooth by default and has a serial protocol, but the Kittenboard doesn't have the right pins — so it acts as a Bluetooth-to-ESP-Now bridge instead.`
+                ],
+                bulletsStyle: "disc", techAlign: "right",
+                bullets: [
+                    `Gesture-based control via M5Stack CoreS3 IMU — tilt to steer the balancing robot in real time`,
+                    `Kittenboard bridges Bluetooth Classic to ESP-Now, solving the pin mismatch between controller and robot`,
+                    `Targeting reinforcement learning for balancing algorithms — exploring PID vs. RL approaches`
+                ],
+                gallery: [
+                    { type: "image", src: "images/esp32-balancing-robot/demo-imu-main.jpg", fit: "contain-dark" },
+                    { type: "video", src: "images/esp32-balancing-robot/demo-imu-controller.mp4", poster: "images/esp32-balancing-robot/demo-imu-controller-thumb.jpg", fit: "contain-dark" },
+                    { type: "video", src: "images/esp32-balancing-robot/demo-app.mp4", poster: "images/esp32-balancing-robot/demo-app-thumb.jpg", fit: "contain-dark" }
+                ],
+                links: [
+                    { kind: "button", action: "openVideoModal", video: "images/esp32-balancing-robot/demo-imu-controller.mp4", icon: "play_circle", title: "Watch IMU Demo" },
+                    { kind: "button", action: "openVideoModal", video: "images/esp32-balancing-robot/demo-app.mp4", icon: "play_circle", title: "Watch Desktop Bot Demo" },
+                    { kind: "a", href: "https://github.com/congthanh184/m5stack-cores3", icon: "code", title: "Source code" }
+                ]
+            },
+            {
                 id: "project-hudo-express",
                 title: "Hudo Express",
                 layout: "left",      // image-left / text-right
