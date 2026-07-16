@@ -533,22 +533,22 @@
         const PROJECTS = [
             {
                 id: "project-esp32-balancing-robot",
-                title: "ESP32 Balancing Robot",
+                title: "Gesture-Controlled Balance Bot",
                 layout: "right",
                 variant: "D",
                 border: "r", borderOpacity: 10, textAlign: "right", justifyTags: "justify-end",
                 tags: ["ESP32", "CoreS3", "Kittenboard", "ESP-Now", "IMU", "Embedded"],
-                summary: `A hobby project exploring ESP32 capabilities — controlling a two-wheeled balancing robot via gesture input from a M5Stack CoreS3, with a Kittenboard acting as a Bluetooth-to-ESP-Now bridge.`,
+                summary: `A hobby project exploring ESP32 capabilities — controlling a two-wheeled balancing robot via gesture input from a M5Stack CoreS3, using a Kittenboard as a Bluetooth-to-ESP-NOW bridge.`,
                 intro: [
-                    `The original goal was a simple desktop bot that could alert me when the next bus was arriving. Then I got distracted by a discounted two-wheeled robot. For anyone interested in control systems, balancing on two wheels always feels like magic — not a skill that can be mastered by a large population. I grabbed it, thinking it would be a great tool to play with different balancing algorithms (hint: reinforcement learning).`,
-                    `Working with embedded systems like this 10 years ago would have been months of pain — hundreds of pages of datasheets, reading and testing. With coding agents, things get much easier. You still spend time figuring out pins when the product doesn't share their schematic, or simply cuts one short (talking about you, Kittenboard), but it's definitely more approachable to build these things now.`,
-                    `The setup: CoreS3 acts as the controller, leveraging its built-in IMU for gesture-based control. The rider-bot comes with Bluetooth by default and has a serial protocol, but the Kittenboard doesn't have the right pins — so it acts as a Bluetooth-to-ESP-Now bridge instead.`
+                    `The original goal was building a desktop bot to alert me when the next bus was arriving. Then I got distracted by a discounted two-wheeled robot. For anyone interested in control systems, standing on two wheels always feels like magic — it is just a fascinating engineering challenge. I grabbed it thinking it would be the perfect playground to experiment with different balancing algorithms (hint: reinforcement learning).`,
+                    `Working with embedded systems 10 years ago meant months of pain wading through hundreds of pages of datasheets. Today, working alongside AI coding agents makes the process much more approachable. You still lose time tracing pins when hardware lack schematics or has quirky designs (looking at you, Kittenboard), but building functional prototypes happens at a completely different velocity now.`
                 ],
                 bulletsStyle: "disc", techAlign: "right",
                 bullets: [
-                    `Gesture-based control via M5Stack CoreS3 IMU — tilt to steer the balancing robot in real time`,
-                    `Kittenboard bridges Bluetooth Classic to ESP-Now, solving the pin mismatch between controller and robot`,
-                    `Targeting reinforcement learning for balancing algorithms — exploring PID vs. RL approaches`
+                    `<strong>The Controller:</strong> An M5Stack CoreS3 uses its built-in IMU to translate physical hand gestures (roll, pitch, shake) into real-time steering commands.`,
+                    `<strong>The Bridge:</strong> The rider-bot speaks Bluetooth Classic natively and exposes a serial protocol, but the Kittenboard lacked the specific breakout pins needed to hook into it directly. To bypass this, the Kittenboard acts as a dedicated wireless bridge, receiving low-latency ESP-NOW packets from the CoreS3 controller and relaying them over Bluetooth to the robot.`,
+                    `<strong>Gesture-Based Control:</strong> Real-time IMU data processing on the CoreS3 to translate tilt angles into motion commands.`,
+                    `<strong>Wireless Data Bridging:</strong> Implementing a hybrid ESP-NOW to Bluetooth Classic pipeline on the Kittenboard to solve physical pin limitations.`
                 ],
                 gallery: [
                     { type: "image", src: "images/esp32-balancing-robot/demo-imu-main.jpg", fit: "contain-dark" },
