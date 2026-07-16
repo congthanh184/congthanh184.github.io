@@ -903,8 +903,8 @@
         function fitClasses(fit) {
             return fit === "cover" ? "bg-cover bg-center" : "bg-no-repeat bg-center";
         }
-        function fitStyle(fit, src) {
-            let s = `background-image: url("${src}");`;
+        function fitStyle(fit, src, lazy) {
+            let s = lazy ? `data-bg="${src}";` : `background-image: url("${src}");`;
             if (fit === "contain-dark")  s += " background-size: contain; background-color: #1e293b;";
             if (fit === "contain-light") s += " background-size: contain; background-color: #f1f5f9;";
             return s;
@@ -994,7 +994,7 @@
                 <div class="w-full ${imageWidth} space-y-4">
                     <div class="${imageWrapClass}"${imageWrapStyle ? ` style="${imageWrapStyle}"` : ""}>
                         <div class="main-project-image absolute inset-0 ${fitClasses(first.fit)} transition-transform duration-700 group-hover:scale-105 cursor-pointer"
-                            style='${fitStyle(first.fit, first.src)}'
+                            style='${fitStyle(first.fit, first.src, true)}'
                             data-action="openLightbox" data-project="${p.id}">
                             <div class="absolute inset-0 flex items-center justify-center bg-charcoal/20 opacity-0 hover:opacity-100 transition-opacity">
                                 <div class="text-white text-center">
@@ -1107,6 +1107,7 @@
             mainImage.classList.remove("hidden");
             if (mainVideo) mainVideo.classList.add("hidden");
             mainImage.style.backgroundImage = `url("${imageSrc}")`;
+            delete mainImage.dataset.bg;
             const bg = fitBg(fit);
             mainImage.style.backgroundSize    = bg.backgroundSize;
             mainImage.style.backgroundRepeat  = bg.backgroundRepeat;
@@ -1325,6 +1326,18 @@
         document.addEventListener("DOMContentLoaded", function () {
             const root = document.getElementById("projects-root");
             PROJECTS.forEach(p => root.appendChild(renderProject(p)));
+
+            // Lazy-load background images via Intersection Observer
+            const lazyObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        el.style.backgroundImage = `url("${el.dataset.bg}")`;
+                        lazyObserver.unobserve(el);
+                    }
+                });
+            }, { rootMargin: "200px" });
+            document.querySelectorAll("[data-bg]").forEach(el => lazyObserver.observe(el));
 
             document.body.addEventListener("click", function (e) {
                 const target = e.target.closest("[data-action]");
